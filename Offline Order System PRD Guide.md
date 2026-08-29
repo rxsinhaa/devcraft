@@ -1,0 +1,186 @@
+# **Product Requirements Document: Autonomous Generation of an Offline-First, Local-Centric Order Management System**
+
+The digital transformation of micro-enterprises operating in emerging economies presents profound architectural challenges that remain unaddressed by conventional, cloud-centric software paradigms. In regions such as Memdi, Madhya Pradesh, India, operators of small businesses—ranging from independent tailors to localized tiffin services—manage complex, high-velocity order intakes primarily through unstructured consumer messaging1. These operational environments are characterized by two uncompromising constraints: severe and unpredictable network partitions, and reliance on mid-range, heavily constrained mobile hardware. Traditional thin-client architectures, which demand continuous synchronous connectivity to a centralized server, fail catastrophically under these conditions, resulting in unacceptable latency, data loss, and operational paralysis.  
+The architectural paradigm must therefore shift toward a rigorous "local-first" model. The local-first philosophy, pioneered by research institutions such as Ink & Switch, asserts that the availability of another computer should never prevent an operator from working, and that the local device must be treated as the primary, authoritative copy of the data2. Under this paradigm, the network is relegated to an optional enhancement, utilized exclusively for asynchronous background synchronization and computationally heavy, non-critical tasks.  
+This document serves as an exhaustive, implementation-ready Product Requirements Document (PRD) designed specifically for an AI-assisted Integrated Development Environment (IDE), such as Cursor. It provides the precise technical directives, schema definitions, and algorithmic boundaries required for the AI agent to autonomously architect, generate, and deploy a production-grade Progressive Web App (PWA). The resulting system will seamlessly ingest highly unstructured, code-mixed natural language messages (combining Hinglish, Devanagari, and colloquial temporal expressions), parse them into strictly typed operational records, and persist them locally with zero blocking network calls, all while maintaining deterministic state synchronization across multiple devices.
+
+## **Core Architectural Directives and Technology Stack**
+
+The engineering requirements necessitate a highly specific combination of modern web frameworks and local-first data storage primitives. The application must be delivered as a Progressive Web App (PWA) optimized for edge deployment on Vercel1.  
+The frontend architecture will rely on React, utilizing Next.js configured with the App Router. To satisfy the stringent offline availability requirements, the system must eschew legacy service worker implementations in favor of @serwist/next. Serwist, the actively maintained successor to next-pwa, provides a robust toolkit for injecting custom service workers, precaching application shells, and managing background synchronization queues within the modern Next.js build pipeline4.  
+Data persistence is restricted exclusively to the client side. The architecture will leverage IndexedDB, the browser's native transactional database, abstracted through the Dexie.js wrapper1. IndexedDB allows for the storage of gigabytes of structured data without the severe limitations of localStorage, but its native API is notoriously verbose and event-driven6. Dexie.js provides a streamlined, promise-based API and reactive liveQuery hooks, enabling the user interface to instantly reflect local database mutations without relying on fragile React state synchronization8. Because the underlying hardware consists of mid-range Android devices, the application must proactively manage the IndexedDB storage limits, which on Chromium-based mobile browsers typically scale dynamically up to 60-80% of free disk space10.  
+The synchronization and state management layer must guarantee deterministic conflict resolution when the device regains connectivity1. Rather than attempting complex operational transformations, the architecture will implement an Event Sourcing (action log) model augmented with Hybrid Logical Clocks (HLC)1. This establishes a rigorous partial ordering of all offline events, ensuring that identical sequences of edits yield identical final states regardless of the temporal order in which devices re-establish network connectivity.
+
+## **Epic 1: The Natural Language Processing (NLP) Parsing Engine**
+
+The central utility of the application resides in its capacity to transform chaotic, conversational text into highly structured commerce data. The input stream consists of free-text customer messages that frequently exhibit code-switching—blending Romanized Hindi (Hinglish), native Devanagari script, English loanwords, and highly contextual colloquialisms1.
+
+### **Target Schema Definition**
+
+The parsing engine, whether operating via the primary online Large Language Model (LLM) or the secondary offline algorithmic fallback, must deterministically map the unstructured input into a strictly typed JSON object. The system must adhere precisely to the following schema specification1.
+
+| Field Name | Data Type | Description |
+| :---- | :---- | :---- |
+| customer | String | Null | The extracted name or identifier of the customer originating the request. |
+| items | Array of Objects | A collection of requested products or services, isolated from the prose. |
+| items\[\].description | String | The core product name or service category (e.g., "kurta", "tiffin"). |
+| items\[\].quantity | Integer | The numeric count, resolved from alphabetic words, digits, or implied singulars. |
+| items\[\].attributes | Object | Implied or explicit specifications, mapped as key-value pairs (e.g., {"color": "navy blue", "chest": "40"}). |
+| due\_date | ISO-8601 Date | Null | The standardized temporal deadline extracted from colloquial relative phrases. |
+| amount | Number | Null | The total monetary value associated with the order, if explicitly specified. |
+| references\_prior\_order | Boolean | Evaluates to true if the message contains referential phrases like "last time jaisa". |
+| confidence | Float (0.0 \- 1.0) | The parser's computed certainty regarding the overall extraction accuracy. |
+| needs\_clarification | Boolean | Evaluates to true if the request is excessively ambiguous, malformed, or incomplete. |
+
+### **Online LLM API Pipeline and Code-Switching Complexity**
+
+When network connectivity is detected, the application will route the raw text to an external LLM API to leverage deep semantic understanding. Processing code-mixed Hinglish presents profound challenges; studies on datasets such as HinGE and COMI-LINGUA demonstrate that standard monolingual models frequently suffer semantic loss when language segments are tightly interwoven15. The phenomenon of code-mixing involves seamless integration of linguistic elements from multiple languages within a single communicative exchange, often violating standard spelling conventions and relying heavily on phonetic transliterations17.  
+The IDE must construct an orchestration layer that wraps the API call in strict validation constraints. The prompt engineering must establish clear boundaries for the LLM, providing it with zero-shot and few-shot examples of complex Hinglish code-switching to ensure accurate entity extraction19. The prompt must explicitly instruct the model to map implied attributes into the attributes object, relying on the semantic context of the specific business domain. For instance, an isolated numeral "40" adjacent to "kurta" must be interpreted as a dimensional measurement, whereas "40" adjacent to "rupees" must map to the amount field1.  
+Furthermore, the LLM must be strictly constrained to output valid JSON matching the schema precisely. The implementation must include a runtime validation layer (e.g., Zod) immediately following the API response to intercept, sanitize, or reject any structural hallucinations before the payload interacts with the persistence layer21.
+
+### **Offline Fallback Constraint and Algorithmic Parsing**
+
+The defining engineering challenge of this epic is the offline degradation requirement. Should the LLM API fail due to network partition or timeout, the application must instantaneously route the message to a local, lightweight JavaScript parser1. This offline engine cannot rely on embedded deep neural networks, as such models exceed the strict 5 MB total application payload constraint and overwhelm the memory capacity of low-end mobile devices1. Instead, the system must utilize a highly optimized, deterministic pipeline of regular expressions, dictionary lookups, and state-machine heuristics.  
+The offline parser must execute the following sequential pipeline:
+
+> 1. **Script Normalization:** The engine must first transliterate Devanagari characters into Romanized Hinglish to create a uniform processing baseline, mitigating the complexity of multi-script inputs1.  
+> 2. **Entity Extraction:** The parser will utilize pre-compiled arrays of domain-specific keywords and regex capture groups to populate the items array, scanning for common item descriptors and adjacent numeric modifiers.  
+> 3. **Colloquial Date Resolution:** This is a critical sub-system requiring robust algorithmic logic. The JavaScript implementation must map culturally specific relative temporal terms into absolute ISO-8601 formats based on the local device's current wall-clock time1. The engine must detect tokens such as "parso" (which can mean the day after tomorrow) and algorithmically resolve it to Current Date \+ 2 days1. Similarly, phrases like "agle mangalwar" (next Tuesday) or "10 tarikh" (10th of the current or upcoming month) must be parsed using a deterministic date-math utility, potentially leveraging the Intl.RelativeTimeFormat API mechanisms adapted for parsing rather than formatting1.  
+> 4. **Ambiguity Flagging:** The offline parser must prioritize operational safety over aggressive guessing. If a regex match for quantity fails, if the text contains multiple conflicting temporal indicators, or if the overall parsing confidence heuristic falls below a defined threshold, the parser must instantly assign needs\_clarification: true1. Confident but incorrect data extraction represents a systemic failure; surfacing uncertainty to the human operator is the required, mathematically sound behavior1.
+
+### **Test Harness Entry Point**
+
+To continuously validate the parser's performance against the dynamic and informal nature of Hinglish, the IDE must generate a standalone Node.js test harness1. This script must be designed to execute entirely outside the browser context, facilitating automated Continuous Integration. It will ingest a batch file named messages\_test.json containing unstructured string payloads, route them sequentially through the hybrid parsing pipeline (simulating both online API and offline fallback states), and emit the structured results against the strict target schema1. The harness must compute and output metrics for field-level extraction accuracy, date resolution precision, and the correct application of the needs\_clarification flag.
+
+## **Epic 2: Offline-First Persistence and Local Storage**
+
+The application must radically subvert standard web application lifecycles by assuming a disconnected state as the default operational mode24. The operator must be able to cold-start the application, view historical records, create new orders, and update existing jobs while the device is strictly in airplane mode1.
+
+### **Client-Side Database Architecture**
+
+All Create, Read, Update, and Delete (CRUD) operations must execute against IndexedDB using the Dexie.js wrapper1. The IDE must define a declarative schema within a centralized database configuration file. IndexedDB provides the necessary transactional safety and structured data storage capabilities that far exceed the 5-10 MB limits of localStorage7. Dexie.js is selected because it eliminates the callback complexity of raw IndexedDB, provides seamless asynchronous access, and offers a robust querying mechanism6.  
+The schema definition must assign highly specific, globally unique primary keys (e.g., UUIDv4 or ULID strings) to every order record. This is a non-negotiable requirement to prevent primary key collisions when synchronizing data across multiple decentralized devices27. The database architecture must eliminate all blocking network calls from the critical path. When an operator submits an order, the data is written to Dexie.js synchronously from the user's perspective, the UI state updates instantly via optimistic rendering, and any subsequent network synchronization is deferred entirely to a background queue25.
+
+### **Storage Quota Management and Eviction Policies**
+
+Operating a database on a mobile browser requires strict adherence to quota management protocols. Browsers dynamically allocate storage limits based on the device's free disk space; for example, Chromium-based browsers typically allow an origin to consume up to 60% of free space, while Safari enforces stricter, incremental limits starting around 1 GB10.  
+Crucially, browser data is stored on a "best-effort" basis by default. When a device experiences storage pressure, the browser's Quota Manager may trigger origin eviction, unilaterally deleting data based on a Least Recently Used (LRU) policy30. To prevent catastrophic data loss in an offline-first application, the IDE must implement logic to explicitly request persistent storage via the navigator.storage.persist() API during application initialization11. Furthermore, all database write operations must be wrapped in try...catch blocks designed to gracefully handle QuotaExceededError exceptions, surfacing actionable alerts to the user rather than failing silently11.
+
+### **Build Optimization and Cold Start**
+
+To function effectively on low-end mobile devices in regions with constrained bandwidth, the initial application payload is strictly capped at a maximum of 5 MB1. The IDE must configure the Next.js build pipeline to aggressively code-split components and employ dynamic imports for heavy libraries, ensuring the critical rendering path remains minimal32.  
+The application must rely on the @serwist/next library to generate a highly optimized service worker4. This service worker must execute a PrecacheAndRoute strategy for all essential HTML, CSS, JavaScript chunks, and web fonts33. Upon the initial visit, the service worker must silently cache the application shell. Subsequent launches, even after force-killing the app or restarting the device, must bypass the network completely. The service worker will serve the application shell directly from the Cache API, while the React components instantaneously hydrate their state by querying the local IndexedDB1. This precise choreography must be optimized to ensure the application reaches a fully interactive state in under 3.0 seconds during a disconnected cold start1.
+
+## **Epic 3: Synchronization and Deterministic Conflict Resolution**
+
+The operational reality of a micro-enterprise often involves multi-device workflows—for instance, the business owner logging incoming WhatsApp orders on a primary smartphone while an assistant updates order fulfillment statuses on a secondary tablet. When both devices operate offline, mutate the same order records concurrently, and eventually reconnect to a network, the system must reconcile the divergent states seamlessly and deterministically, without any data loss1.
+
+### **Event Sourcing and Hybrid Logical Clocks**
+
+To achieve deterministic convergence, the IDE must architect an advanced synchronization engine relying on Event Sourcing principles rather than simple state-based replication. Instead of merely storing the final snapshot of an order in IndexedDB, the application must maintain an immutable, append-only log of every discrete mutation (e.g., CREATE\_ORDER, UPDATE\_QUANTITY, MARK\_COMPLETE)1.  
+Establishing mathematical causality across disparate, disconnected devices without a centralized time authority is a complex distributed systems problem. Relying solely on physical wall-clock timestamps is dangerously flawed due to clock skew, battery depletion, and manual time-zone adjustments13. Conversely, pure Vector Clocks—while mathematically precise—incur memory overhead that scales linearly with the number of nodes (![][image1]), making them less ideal for dynamic edge clients13.  
+The optimal architecture must utilize Hybrid Logical Clocks (HLC). An HLC embeds a compound timestamp into every event payload, consisting of the device's physical wall-clock time combined with a logical counter12. Upon a local event, the HLC advances its physical component to the maximum of the current time and its previous state. If the physical time has not advanced, the logical counter is incremented13. When devices reconnect and exchange event logs, they synchronize their HLCs, ensuring that every operation possesses a strictly ordered timestamp that mathematically respects the "happens-before" relationship13.  
+The sync engine will replay these event logs locally. Because the events are strictly ordered by their HLC timestamps, the application guarantees deterministic convergence: an identical sequence of offline edits will consistently result in the exact same final state, regardless of the sequence or speed at which the devices establish network connectivity1.
+
+### **Surface-Level Conflict Resolution User Interface**
+
+While Last-Write-Wins (LWW) driven by HLC timestamps is mathematically sufficient for many background merges, the product requirements strictly prohibit silent data loss during direct, operational conflicts1. If two offline devices concurrently execute a mutation on the exact same discrete field of the same order (e.g., Device A updates a delivery date to Tuesday, while Device B concurrently updates it to Wednesday), the system cannot arbitrarily discard one user's intent based on a microscopic timestamp delta.  
+The IDE must program the sync engine to detect concurrent divergence. When the engine processes an event log and identifies two operations targeting the same field with concurrent HLC logical boundaries, it must pause the automatic merge for that specific attribute. The engine must persist both conflicting values into a temporary conflict state within IndexedDB. The application must then surface a dedicated "Conflict Resolution" User Interface1. This UI will actively alert the operator, presenting the divergent edits side-by-side with their respective timestamps and originating device IDs. The system must physically block the resolution of the order until the user manually selects the winning edit or inputs a merged compromise, thus preserving absolute data integrity1.
+
+## **Epic 4: Query Layer and Operational Dashboard**
+
+The application must transcend basic data entry to function as an autonomous operational command center. The business owner requires immediate, offline access to critical business intelligence without navigating through complex, paginated, or scrolling interfaces1. The IDE is tasked with constructing a highly responsive, single-pane operational dashboard that extracts insight directly from the local data store.
+
+### **Operational Query Specifications**
+
+The dashboard must autonomously execute complex queries against the local Dexie.js database without any external server processing. To achieve sub-millisecond response times on mid-range Android processors, the IDE must define optimized IndexedDB secondary indexes for all queried fields6. The UI must clearly and concisely answer the following four operational directives1:
+
+> 1. **Temporal Triage (Daily Due & Overdue):** *What is due today, and what is overdue?* The system must query the due\_date index, utilizing range queries to filter records where the date matches the current local system date, and separately aggregating records where the due date is in the past but the order status is flagged as incomplete1.  
+> 2. **Financial Reconciliation (Outstanding Debt):** *Which customers owe money, and how much in total?* The dashboard must execute a grouped aggregation on the amount field. It will cross-reference internal payment status flags to display a consolidated, descending ledger of outstanding balances sorted by the customer string1.  
+> 3. **Historical Continuity (Customer Specifications):** *What did a specific customer order last time, and what were the exact specifications?* Leveraging the references\_prior\_order boolean, the query layer must retrieve the most recent chronological record for a given customer identity. The UI will expand the items\[\].attributes object to display the precise historical measurements or specifications (e.g., chest dimensions, dietary preferences) directly on the dashboard1.  
+> 4. **Capacity Planning (Weekly Workload):** *What is the committed capacity for the current week?* The query must aggregate the total items\[\].quantity metrics across all orders scheduled with due dates falling within the current rolling seven-day window. This provides the operator with a definitive measure of their upcoming workload, allowing them to accept or reject new orders based on mathematically sound capacity limits1.
+
+### **Reactive User Interface Architecture**
+
+The operational dashboard must be strictly non-scrolling, utilizing a dense, widget-based layout that prioritizes immediate visibility of the four key metrics1. The architecture must heavily utilize Dexie's liveQuery observables. By wrapping the database queries in liveQuery and consuming them via React hooks, the IndexedDB outputs are bound directly to the component lifecycle8. This reactive paradigm ensures that the moment a background sync process pulls down a new order from a secondary device, or the operator logs a new entry locally, the capacity numbers and financial totals instantly recalculate and re-render on the screen without requiring manual polling or a page refresh8.
+
+## **Epic 5: Infrastructure Deployment and Technical Documentation**
+
+The final deliverable encompasses the infrastructure configuration necessary for a robust edge deployment, alongside exhaustive, transparent technical documentation.
+
+### **Progressive Web App Distribution**
+
+The application must be configured to bypass traditional app store gatekeeping via seamless PWA installation39. The IDE must generate a manifest.json (or manifest.ts leveraging Next.js metadata routes) containing the precise parameters required by mobile browsers to trigger the "Add to Home Screen" prompt4. This includes defining the name, short\_name, theme\_color, background\_color, enforcing display: "standalone", and providing an array of optimized icon sizes4.  
+Furthermore, a meticulously configured vercel.json file must be generated to manage edge caching headers. It is critical that the service worker file (sw.js) is instructed to bypass the edge CDN cache entirely (e.g., Cache-Control: no-cache), ensuring that the browser always checks for the latest application updates, while static assets receive long-lived immutable cache directives.
+
+### **Architectural Documentation and Transparency**
+
+The project repository must include a README.md that serves as the definitive reference for the system's engineering choices. The IDE must draft this document with unvarnished technical honesty, prioritizing engineering rigor over marketing rhetoric. The README must explicitly address1:
+
+* **Architecture Overview:** A structural breakdown of the Next.js, Serwist, and Dexie.js integrations, emphasizing the offline-first data flow, the PWA caching strategy, and the optimization techniques used to achieve the sub-5MB payload.  
+* **Offline NLP Fallback:** A detailed explanation of the heuristic and regex pipeline utilized to extract structured data when the LLM is unreachable. It must document the sociolinguistic assumptions made for Hinglish and Devanagari processing, and outline the algorithmic logic driving the date resolution math41.  
+* **Deterministic Sync Strategy:** A mathematical and systemic explanation of the Event Sourcing architecture. It must clearly outline how the Hybrid Logical Clocks generate timestamps, how causality is tracked, and how the append-only action log ensures eventual consistency without centralized coordination.  
+* **Honest, Known Limitations:** A high-scoring architectural document must feature a transparent critique of its own boundaries1. The README must openly document the fail states of the colloquial date parser (e.g., acknowledging that the offline engine will fail to accurately resolve complex fiscal-quarter references or highly obscure regional dialects)1. It must also explicitly note the limitations of the sync layer, such as the maximum storage capacity constraints of IndexedDB on mobile devices (warning of potential QuotaExceededError states on full disks) and the long-term memory overhead of maintaining an infinite, append-only event log without aggressive garbage collection strategies10.
+
+## **Autonomous Development Directives (AI IDE Guidelines)**
+
+To the Principal AI Agent executing this Product Requirements Document: Your operation must be characterized by extreme ownership, unyielding precision, and a research-first methodology43.
+
+> 1. **Strict Technology Adherence:** You are mathematically confined to the outlined technology stack. Do not introduce alternative databases (e.g., Firebase, Supabase), complex state management libraries (like Redux) if local Dexie.js reactivity suffices, or server-side relational databases. The architecture is strictly local-first2.  
+> 2. **No Assumption Engineering:** When building the NLP fallback algorithms and the Event Sourcing merge conflict rules, do not guess at edge cases43. Implement exactly the mathematical properties required for Hybrid Logical Clocks. When writing .cursorrules or instructions.md, enforce strict guidelines against arbitrary code hallucination44.  
+> 3. **Verifiable Output via TDD:** Implement the Node.js test harness early in the development cycle. Utilize Test-Driven Development (TDD) by establishing the failing tests for the messages\_test.json payload before constructing the parsing functions, ensuring that success is verifiable against empirical metrics46.  
+> 4. **Zero Silent Failures:** Ensure that the architecture aggressively traps errors. Whether it is an IndexedDB quota limit reached on a constrained Android device or a concurrent edit conflict detected during a sync payload, the system must surface the anomaly gracefully to the user interface rather than failing silently in the background1.
+
+By executing against these rigorous specifications, the resulting system will provide a highly resilient, deeply integrated commerce tool capable of surviving the harshest network conditions while bringing cutting-edge natural language processing directly to the edge.
+
+#### **Works cited**
+
+> 1. DevCraft.pdf  
+> 2. Local-first software \- Wikipedia, [https://en.wikipedia.org/wiki/Local-first\_software](https://en.wikipedia.org/wiki/Local-first_software)  
+> 3. What is Local-first Software? \- Mike Zornek, [https://mikezornek.com/posts/2025/2/what-is-local-first-software/](https://mikezornek.com/posts/2025/2/what-is-local-first-software/)  
+> 4. nextjs-pwa | Skills Marketplace \- LobeHub, [https://lobehub.com/skills/jakerains-agentskills-nextjs-pwa](https://lobehub.com/skills/jakerains-agentskills-nextjs-pwa)  
+> 5. Activating PWA in Next.js 13+ App Directory Using @Serwist, [https://blog.stackademic.com/activating-pwa-in-next-js-13-app-directory-using-serwist-simple-guide-b84d2a29da9c](https://blog.stackademic.com/activating-pwa-in-next-js-13-app-directory-using-serwist-simple-guide-b84d2a29da9c)  
+> 6. Best IndexedDB Wrapper \- Compare Dexie, idb, localForage ... \- RxDB, [https://rxdb.info/articles/indexeddb/best-indexeddb-wrapper.html](https://rxdb.info/articles/indexeddb/best-indexeddb-wrapper.html)  
+> 7. IndexedDB and Web Workers: A Guide to Offline-First Web Apps, [https://blog.adyog.com/indexeddb-and-web-workers-a-guide-to-offline-first-web-apps/](https://blog.adyog.com/indexeddb-and-web-workers-a-guide-to-offline-first-web-apps/)  
+> 8. Dexie.js Features \- IndexedDB Wrapper & Dexie Cloud Sync Platform, [https://dexie.org/product](https://dexie.org/product)  
+> 9. rxdb \- Yarn Classic, [https://classic.yarnpkg.com/en/package/rxdb](https://classic.yarnpkg.com/en/package/rxdb)  
+> 10. IndexedDB Max Storage Size Limit \- Detailed Best Practices \- RxDB, [https://rxdb.info/articles/indexeddb-max-storage-limit.html](https://rxdb.info/articles/indexeddb-max-storage-limit.html)  
+> 11. What are IndexedDB's storage limits across different browsers, [https://www.mindstick.com/interview/34337/what-are-indexeddb-s-storage-limits-across-different-browsers-platforms](https://www.mindstick.com/interview/34337/what-are-indexeddb-s-storage-limits-across-different-browsers-platforms)  
+> 12. XDCR Conflict Resolution | Couchbase Docs, [https://docs.couchbase.com/server/current/learn/clusters-and-availability/xdcr-conflict-resolution.html](https://docs.couchbase.com/server/current/learn/clusters-and-availability/xdcr-conflict-resolution.html)  
+> 13. Eventual Consistency and Conflict Resolution \- Part 2, [https://www.mydistributed.systems/2022/02/eventual-consistency-part-2.html](https://www.mydistributed.systems/2022/02/eventual-consistency-part-2.html)  
+> 14. Expert Annotated Large-Scale Dataset for Multitask NLP in Hindi, [https://arxiv.org/html/2503.21670v2](https://arxiv.org/html/2503.21670v2)  
+> 15. A Dataset for Generation and Evaluation of Code-Mixed Hinglish Text, [https://www.semanticscholar.org/paper/HinGE%3A-A-Dataset-for-Generation-and-Evaluation-of-Srivastava-Singh/f064a5f6a1acda926939c184e26fdd2f21fdfafc](https://www.semanticscholar.org/paper/HinGE%3A-A-Dataset-for-Generation-and-Evaluation-of-Srivastava-Singh/f064a5f6a1acda926939c184e26fdd2f21fdfafc)  
+> 16. GLUECoS: An Evaluation Benchmark for Code-Switched NLP, [https://www.researchgate.net/publication/343300735\_GLUECoS\_An\_Evaluation\_Benchmark\_for\_Code-Switched\_NLP](https://www.researchgate.net/publication/343300735_GLUECoS_An_Evaluation_Benchmark_for_Code-Switched_NLP)  
+> 17. Unified Framework for Hinglish Short Text, [https://jier.org/index.php/journal/article/download/4067/3209/7139](https://jier.org/index.php/journal/article/download/4067/3209/7139)  
+> 18. Cyberbullying Detection in Hinglish Text Using MURIL and ... \- arXiv, [https://arxiv.org/html/2506.16066v1](https://arxiv.org/html/2506.16066v1)  
+> 19. arXiv:2211.07514v1 \[cs.CL\] 14 Nov 2022, [https://arxiv.org/pdf/2211.07514](https://arxiv.org/pdf/2211.07514)  
+> 20. Indi-RomCoM: Code-Mixed Benchmark for Evaluating LLMs ... \- arXiv, [https://arxiv.org/html/2606.30790v1](https://arxiv.org/html/2606.30790v1)  
+> 21. Upgrade Your Full Stack Form Validation with Zod and React Hook, [https://blog.stackademic.com/upgrade-your-full-stack-form-validation-with-zod-and-react-hook-form-in-next-js-107b014628a3](https://blog.stackademic.com/upgrade-your-full-stack-form-validation-with-zod-and-react-hook-form-in-next-js-107b014628a3)  
+> 22. Accelerating Mobile Web Pages On-The-Fly Through JavaScript, [https://arxiv.org/pdf/2106.13764](https://arxiv.org/pdf/2106.13764)  
+> 23. Relative Date Internationalization In JavaScript, [https://blog.webdevsimplified.com/2020-07/relative-time-format/](https://blog.webdevsimplified.com/2020-07/relative-time-format/)  
+> 24. Build Offline-First PWA with React, Dexie.js & Workbox \- WellAlly, [https://www.wellally.tech/blog/build-offline-pwa-react-dexie-workbox](https://www.wellally.tech/blog/build-offline-pwa-react-dexie-workbox)  
+> 25. Builing an offline-first app with build-from-scratch Sync Engine, [https://dev.to/daliskafroyan/builing-an-offline-first-app-with-build-from-scratch-sync-engine-4a5e](https://dev.to/daliskafroyan/builing-an-offline-first-app-with-build-from-scratch-sync-engine-4a5e)  
+> 26. IndexedDB API \- MDN Web Docs \- Mozilla, [https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB\_API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)  
+> 27. Get started with Dexie Cloud \- Offline-First Database for JavaScript, [https://dexie.org/docs/Tutorial/Dexie-Cloud](https://dexie.org/docs/Tutorial/Dexie-Cloud)  
+> 28. 26 Best Local-First Databases For Web Apps \- CSS Author, [https://cssauthor.com/best-local-first-databases-for-web-apps/](https://cssauthor.com/best-local-first-databases-for-web-apps/)  
+> 29. IndexedDB: Browser Support, Storage Limits, Known Issues, [https://www.testmuai.com/learning-hub/indexeddb-browser-support/](https://www.testmuai.com/learning-hub/indexeddb-browser-support/)  
+> 30. Storage quotas and eviction criteria \- Web APIs \- MDN Web Docs, [https://developer.mozilla.org/en-US/docs/Web/API/Storage\_API/Storage\_quotas\_and\_eviction\_criteria](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria)  
+> 31. Browser storage limits and eviction criteria \- Web APIs | MDN, [https://mdn2.netlify.app/en-us/docs/web/api/indexeddb\_api/browser\_storage\_limits\_and\_eviction\_criteria/](https://mdn2.netlify.app/en-us/docs/web/api/indexeddb_api/browser_storage_limits_and_eviction_criteria/)  
+> 32. straude/docs/CHANGELOG.md at main \- GitHub, [https://github.com/ohong/straude/blob/main/docs/CHANGELOG.md](https://github.com/ohong/straude/blob/main/docs/CHANGELOG.md)  
+> 33. Building an Offline-First Next.js 15 App with App Router and ... \- GitHub, [https://github.com/vercel/next.js/discussions/82498](https://github.com/vercel/next.js/discussions/82498)  
+> 34. Chrome DevTools Background Services: Complete Guide, [https://cloudmato.com/posts/chrome-devtools-background-services/](https://cloudmato.com/posts/chrome-devtools-background-services/)  
+> 35. arXiv:1612.05205v1 \[cs.DC\] 16 Nov 2016, [https://arxiv.org/pdf/1612.05205](https://arxiv.org/pdf/1612.05205)  
+> 36. README.md \- wienerlabs/cauchy \- GitHub, [https://github.com/wienerlabs/cauchy/blob/main/README.md](https://github.com/wienerlabs/cauchy/blob/main/README.md)  
+> 37. Transaction Layer \- CockroachDB, [https://www.cockroachlabs.com/docs/v24.3/architecture/transaction-layer](https://www.cockroachlabs.com/docs/v24.3/architecture/transaction-layer)  
+> 38. Session Guarantees with Raft and Hybrid Logical Clocks \- arXiv, [https://arxiv.org/html/1808.05698v1](https://arxiv.org/html/1808.05698v1)  
+> 39. A Survey on Progressive Web Applications for Decentralized Systems, [https://www.preprints.org/manuscript/202604.0582](https://www.preprints.org/manuscript/202604.0582)  
+> 40. Next.js 16 PWA: Convert Your App in 10 Minutes | Build with Matija, [https://www.buildwithmatija.com/blog/turn-nextjs-16-app-into-pwa](https://www.buildwithmatija.com/blog/turn-nextjs-16-app-into-pwa)  
+> 41. Comi-Lingua Dataset | PDF | Annotation | Verb \- Scribd, [https://www.scribd.com/document/1008874711/comi-lingua-dataset](https://www.scribd.com/document/1008874711/comi-lingua-dataset)  
+> 42. Maximum item size in IndexedDB \- Stack Overflow, [https://stackoverflow.com/questions/5692820/maximum-item-size-in-indexeddb](https://stackoverflow.com/questions/5692820/maximum-item-size-in-indexeddb)  
+> 43. Cursor AI Prompting Rules \- GitHub Gist, [https://gist.github.com/aashari/07cc9c1b6c0debbeb4f4d94a3a81339e](https://gist.github.com/aashari/07cc9c1b6c0debbeb4f4d94a3a81339e)  
+> 44. Writing PRDs for AI Code Generation Tools in 2026 \- ChatPRD, [https://www.chatprd.ai/learn/prd-for-ai-codegen](https://www.chatprd.ai/learn/prd-for-ai-codegen)  
+> 45. Cursor Rules: Complete Guide to AI Coding Standards (2026), [https://www.skakarh.com/blog/cursor-rules](https://www.skakarh.com/blog/cursor-rules)  
+> 46. Best practices for coding with agents \- Cursor, [https://cursor.com/blog/agent-best-practices](https://cursor.com/blog/agent-best-practices)  
+> 47. How to write a good spec for AI agents \- Addy Osmani, [https://addyosmani.com/blog/good-spec/](https://addyosmani.com/blog/good-spec/)
+
+[image1]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAaCAYAAAAaAmTUAAACS0lEQVR4Xu2WvWsVQRTFj5qIJijYmEYNKWzFzqigGCEKYiOWkmAh2GgjMf4JYmUh6P8giJBGUkUb0wgigqhgISJR4xd+a0i8J3c2b97JvJ3Vt7Hx/eDw3px75w47Mzs7QIf/h2E12mSnGn9Lv+ma6Yppo8RSnDZdULMGFtT4Ey7DC4yE9jbTa9P3pYzlbDW9VDNiFl6zkPIMzfHHUWzA9D5qV2I1vNBtDQTmTPNqBthvnZrCTdM9eO5uiZEu0yM1A19MR9Usg4NwhloxBM85KP4e0w/xUrDv2vD7U2LkjOmImoHtSK9okhfIJxcrd138X6j2rnwMv3wQ1uFKxMxIW2GfHjWV/fDEKfGVTfC8D+LTWy+essN0LvzfC+9zpxFeJDeZjF9SU+HMMjG350/A8+5H3obg5bhhWhO12Uf73ZW2MokK2zlVOMUTeB6P4IIDwcuhOReDV6wWa+a+UfxMaJ0mNqP6w6TyTia8FMX7EhPXexUHWjCOzFhceiZ804BwHJ6nx/Zo8MvgV3xMTeMhvG/Vk4o1snmpGVda5Qwi7cdMYPnJRXrhfblqehikuIr8WIvFypKew+PdGkDjhCujLM6PMON893LcMn1VMwULPlDTeAM/7cpgX34MU5yFx1dpIHAY5Q8bwzxetSpR3J+m4e8Q/+9qykjDvOJUKuC2+mR6F8QZPdSU0eCtGi3gONwJK8p502c1a2YLqq9g23Cg1EteF7w1H1NzpeDef6pmTfQhf2+rHd6bTqlZA/9seymjarTJPjU6dOhQD78BqRyWmBpJICMAAAAASUVORK5CYII=>
