@@ -34,11 +34,13 @@ export default function Dashboard() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isConflictModalOpen, setIsConflictModalOpen] = useState(false);
   const [onlineStatus, setOnlineStatus] = useState(true);
+  const [nodeId, setNodeId] = useState<string>("");
 
-  // Monitor network status reactively
+  // Monitor network status reactively and load node ID safely on client
   useEffect(() => {
     if (typeof window !== "undefined") {
       setOnlineStatus(navigator.onLine);
+      setNodeId(localStorage.getItem("hlc_node_id") || "device_node");
       const goOnline = () => setOnlineStatus(true);
       const goOffline = () => setOnlineStatus(false);
       window.addEventListener("online", goOnline);
@@ -217,7 +219,7 @@ export default function Dashboard() {
             Simulate Sync Conflict
           </button>
           <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-            Node ID: {typeof window !== "undefined" ? localStorage.getItem("hlc_node_id") || "loading..." : ""}
+            Node ID: {nodeId || "loading..."}
           </span>
         </div>
       </header>
@@ -269,8 +271,13 @@ export default function Dashboard() {
                     </div>
                     <div className={styles.orderItems}>
                       {o.parsed_order.items.map((item, idx) => (
-                        <div key={idx}>
-                          • {item.quantity} {item.attributes?.unit || "piece"} - {item.description}
+                        <div key={idx} style={{ marginBottom: "2px" }}>
+                          • {item.quantity} {item.attributes?.unit || "piece"} - <strong>{item.description}</strong>
+                          {item.attributes && Object.keys(item.attributes).filter(k => k !== "unit").length > 0 && (
+                            <span style={{ fontSize: "10px", color: "var(--accent-secondary)", marginLeft: "6px" }}>
+                              ({Object.entries(item.attributes).filter(([k]) => k !== "unit").map(([k, v]) => `${k}: ${v}`).join(", ")})
+                            </span>
+                          )}
                         </div>
                       ))}
                     </div>

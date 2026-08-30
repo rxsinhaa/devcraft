@@ -42,7 +42,22 @@ export async function parseMessage(rawText: string, baseDate: Date = new Date())
 
     const data = await response.json();
     
-    // 3. Strict schema validation to catch structural hallucinations
+    console.log("=== [DEBUG LAYER 5: DATA RECEIVED BY llmClient.ts] ===");
+    console.log(JSON.stringify(data, null, 2));
+    console.log("======================================================");
+    
+    // 3. Pre-sanitize edge cases before strict schema validation
+    if (data.customer === "null" || data.customer === ":null" || data.customer === "undefined") {
+      data.customer = null;
+    }
+    if (data.due_date && (!/^\d{4}-\d{2}-\d{2}/.test(data.due_date) || data.due_date === ":null" || data.due_date === "null")) {
+      data.due_date = null;
+    }
+    if (data.amount === "null" || data.amount === ":null" || isNaN(Number(data.amount))) {
+      data.amount = null;
+    }
+
+    // 4. Strict schema validation to catch structural hallucinations
     const validatedData = OrderRecordSchema.parse(data);
     return validatedData;
 
