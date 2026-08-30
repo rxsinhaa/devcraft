@@ -14,7 +14,9 @@ import {
   getActiveOrders, 
   toggleOrderCompletion, 
   togglePaymentStatus,
-  replayEvents
+  replayEvents,
+  clearAllData,
+  triggerSync
 } from "@/lib/db";
 import { parseMessage } from "@/lib/llmClient";
 import { OrderRecord } from "@/schema";
@@ -35,6 +37,8 @@ export default function Dashboard() {
   const [isConflictModalOpen, setIsConflictModalOpen] = useState(false);
   const [onlineStatus, setOnlineStatus] = useState(true);
   const [nodeId, setNodeId] = useState<string>("");
+  const [language, setLanguage] = useState<"en" | "hi">("en");
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
 
   // Monitor network status reactively and load node ID safely on client
   useEffect(() => {
@@ -52,8 +56,58 @@ export default function Dashboard() {
     }
   }, []);
 
+  // Listen to PWA installation prompts
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleBeforePrompt = (e: Event) => {
+        e.preventDefault();
+        setInstallPrompt(e);
+      };
+      window.addEventListener("beforeinstallprompt", handleBeforePrompt);
+      return () => {
+        window.removeEventListener("beforeinstallprompt", handleBeforePrompt);
+      };
+    }
+  }, []);
+
+  // Periodic client-side background sync
+  useEffect(() => {
+    // Run initial sync
+    triggerSync().catch(err => console.error("Initial sync failed:", err));
+
+    // Poll every 3 seconds when online
+    const interval = setInterval(() => {
+      triggerSync().catch(err => console.error("Interval sync failed:", err));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      const { outcome } = await installPrompt.userChoice;
+      if (outcome === "accepted") {
+        setInstallPrompt(null);
+      }
+    } else {
+      alert(language === "en" 
+        ? "To install Resolv on your device:\n1. Open your browser menu (⋮ or share icon).\n2. Select 'Add to Home Screen' or 'Install App'."
+        : "अपने डिवाइस पर Resolv इंस्टॉल करने के लिए:\n1. अपने ब्राउज़र मेनू (⋮ या शेयर बटन) पर जाएं।\n2. 'Add to Home Screen' या 'Install App' पर टैप करें।"
+      );
+    }
+  };
+
   // 1. Live Query active orders (live update from Dexie)
   const orders = useLiveQuery(getActiveOrders) || [];
+
+  // Filter active and completed orders
+  const { activeOrders, completedOrders } = useMemo(() => {
+    return {
+      activeOrders: orders.filter(o => !o.is_completed),
+      completedOrders: orders.filter(o => o.is_completed)
+    };
+  }, [orders]);
 
   // 2. Live Query active conflicts
   const conflicts = useLiveQuery(() => db.conflict_state.toArray()) || [];
@@ -201,26 +255,136 @@ export default function Dashboard() {
     setIsConflictModalOpen(true);
   };
 
+  const handleClearAll = async () => {
+    if (confirm(language === "en" ? "Are you sure you want to clear all orders?" : "क्या आप सचमुच सभी ऑर्डर्स मिटाना चाहते हैं?")) {
+      try {
+        await clearAllData();
+        setSelectedHistoryCustomer("");
+      } catch (err) {
+        console.error("Failed to clear data:", err);
+      }
+    }
+  };
+  const t = {
+    en: {
+      title: "Paste WhatsApp Messages",
+      placeholder: "Paste WhatsApp messages here... (e.g. 'kurta silai 2 piece maroon color, waist 32, parso tak')",
+      parseBtn: "Save Order",
+      parsing: "Saving...",
+      activeOrders: "Current Orders",
+      noOrders: "No active orders.",
+      due: "Delivery",
+      noAmount: "No Price",
+      dueToday: "Due Today",
+      overdue: "Late / Overdue",
+      temporalTriage: "⏱️ Work Deadlines",
+      outstandingLedger: "💳 Who Owes Money",
+      settled: "No pending debt!",
+      historicalContinuity: "📋 Customer Past Specs",
+      lastOrderRecord: "Last Order",
+      noHistory: "No customers yet.",
+      noHistoryForCustomer: "No history found.",
+      weeklyCapacity: "📊 Weekly Work Limit",
+      rolling: "7-Day Load",
+      capacityCommitted: "committed",
+      highWorkload: "⚠️ High Workload Warning!",
+      unpaid: "Unpaid",
+      paid: "Paid"
+    },
+    hi: {
+      title: "व्हाट्सएप मैसेज पेस्ट करें",
+      placeholder: "यहाँ व्हाट्सएप मैसेज पेस्ट करें... (जैसे: 'कुर्ता सिलाई २ पीस मैरून कलर, कमर ३२, परसों तक')",
+      parseBtn: "ऑर्डर सुरक्षित करें (Save)",
+      parsing: "सुरक्षित हो रहा है...",
+      activeOrders: "चालू ऑर्डर्स",
+      noOrders: "कोई चालू ऑर्डर नहीं है।",
+      due: "तारीख",
+      noAmount: "कीमत नहीं",
+      dueToday: "आज ही देना है",
+      overdue: "तारीख निकल चुकी है",
+      temporalTriage: "⏱️ डिलीवरी की तारीख",
+      outstandingLedger: "💳 उधारी खाता",
+      settled: "कोई उधारी नहीं है!",
+      historicalContinuity: "📋 पुराना माप / रिकॉर्ड",
+      lastOrderRecord: "आखिरी ऑर्डर",
+      noHistory: "कोई ग्राहक रिकॉर्ड नहीं मिला।",
+      noHistoryForCustomer: "कोई पुराना रिकॉर्ड नहीं मिला।",
+      weeklyCapacity: "📊 हफ़्ते का काम",
+      rolling: "७ दिन का लोड",
+      capacityCommitted: "काम दर्ज है",
+      highWorkload: "⚠️ बहुत ज़्यादा काम!",
+      unpaid: "बाकी (Unpaid)",
+      paid: "नकद (Paid)"
+    }
+  }[language];
   return (
     <div className={styles.container}>
       {/* 1. Header Area */}
       <header className={styles.header}>
         <div className={styles.titleArea}>
-          <h1 className={styles.title}>Offline Order Console</h1>
+          <h1 className={styles.title}>Resolv Order Console</h1>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <button 
+              className={styles.button} 
+              style={{ 
+                backgroundColor: "#16a34a", 
+                color: "#ffffff", 
+                border: "2px solid #15803d",
+                fontSize: "14px", 
+                fontWeight: "800",
+                minHeight: "44px",
+                padding: "4px 12px"
+              }} 
+              onClick={handleInstallApp}
+            >
+              📥 {language === "en" ? "Download App" : "ऐप डाउनलोड करें"}
+            </button>
+            <button 
+              className={styles.button} 
+              style={{ 
+                backgroundColor: "#2563eb", 
+                color: "#ffffff", 
+                border: "2px solid #1d4ed8",
+                fontSize: "14px", 
+                fontWeight: "800",
+                minHeight: "44px",
+                padding: "4px 12px"
+              }} 
+              onClick={() => setLanguage(language === "en" ? "hi" : "en")}
+            >
+              {language === "en" ? "English / हिंदी" : "हिंदी / English"}
+            </button>
+            <button 
+              className={styles.button} 
+              style={{ 
+                backgroundColor: "#dc2626", 
+                color: "#ffffff", 
+                border: "2px solid #b91c1c",
+                fontSize: "14px", 
+                fontWeight: "800",
+                minHeight: "44px",
+                padding: "4px 12px"
+              }} 
+              onClick={handleClearAll}
+            >
+              🗑️ {language === "en" ? "Clear All" : "सब मिटाएं"}
+            </button>
+          </div>
+        </div>
+        <div className={styles.controls}>
           <span className={`${styles.badge} ${onlineStatus ? styles.badgeOnline : styles.badgeOffline}`}>
             {onlineStatus ? "Online (LLM API)" : "Offline (Local Fallback)"}
           </span>
-        </div>
-        <div className={styles.controls}>
-          <button className={`${styles.button} ${styles.buttonSecondary}`} onClick={toggleNetworkSimulation}>
-            Mock Network Status
-          </button>
-          <button className={`${styles.button} ${styles.buttonSecondary}`} onClick={handleSimulateConflict}>
-            Simulate Sync Conflict
-          </button>
-          <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+          <span style={{ fontSize: "11px", color: "var(--text-muted)", marginLeft: "auto" }}>
             Node ID: {nodeId || "loading..."}
           </span>
+        </div>
+        <div style={{ marginTop: "12px", borderTop: "1.5px solid #000000", paddingTop: "12px" }}>
+          <p style={{ fontSize: "14px", fontWeight: "600", color: "var(--text-secondary)", lineHeight: "1.5" }}>
+            {language === "en" 
+              ? "Resolv helps you save and manage orders from WhatsApp. Paste any message here to get item details, prices, and delivery dates instantly. Works even without internet!"
+              : "Resolv व्हाट्सएप ऑर्डर्स को आसानी से सुरक्षित रखने और ट्रैक करने का ऐप है। कोई भी मैसेज पेस्ट करें और सामान, कीमतें तथा डिलीवरी की तारीखें तुरंत पाएं। बिना इंटरनेट भी काम करता है!"}
+          </p>
         </div>
       </header>
 
@@ -241,40 +405,40 @@ export default function Dashboard() {
           {/* Quick Ingest Box */}
           <div className={styles.card}>
             <div className={styles.ingestBox}>
-              <h3 style={{ fontSize: "14px", fontWeight: "600" }}>Raw Order Message Ingestion</h3>
+              <h3 style={{ fontSize: "16px", fontWeight: "800", color: "#000000" }}>{t.title}</h3>
               <textarea
                 className={styles.textarea}
-                placeholder="Paste WhatsApp Hinglish/Devanagari order here... (e.g. '2 kg aaloo and 1 packet milk kal de dena. Rs 150 total.')"
+                placeholder={t.placeholder}
                 value={inputText}
                 onChange={e => setInputText(e.target.value)}
               />
-              <button className={styles.button} onClick={handleProcessOrder} disabled={isProcessing}>
-                {isProcessing ? "Processing NLP..." : "Parse & Log Order"}
+              <button className={styles.button} style={{ fontSize: "16px", minHeight: "48px" }} onClick={handleProcessOrder} disabled={isProcessing}>
+                {isProcessing ? t.parsing : t.parseBtn}
               </button>
             </div>
           </div>
 
           {/* Active Orders List */}
-          <div className={styles.card} style={{ flex: 1 }}>
-            <h3 style={{ fontSize: "14px", fontWeight: "600", marginBottom: "8px" }}>Active Orders ({orders.length})</h3>
+          <div className={styles.card}>
+            <h3 style={{ fontSize: "16px", fontWeight: "800", color: "#000000" }}>{t.activeOrders} ({activeOrders.length})</h3>
             <div className={styles.orderList}>
-              {orders.length === 0 ? (
-                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "12px", marginTop: "24px" }}>
-                  No active orders recorded locally.
+              {activeOrders.length === 0 ? (
+                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "14px", padding: "20px 0" }}>
+                  {t.noOrders}
                 </div>
               ) : (
-                orders.map(o => (
+                activeOrders.map(o => (
                   <div key={o.id} className={styles.orderCard}>
                     <div className={styles.orderCardHeader}>
-                      <span className={styles.customerName}>{o.customer || "Walk-in Customer"}</span>
-                      <span className={styles.orderDate}>Due: {o.due_date || "N/A"}</span>
+                      <span className={styles.customerName}>{o.customer || (language === "en" ? "Walk-in Customer" : "बिना नाम का ग्राहक")}</span>
+                      <span className={styles.orderDate}>{t.due}: {o.due_date || "N/A"}</span>
                     </div>
                     <div className={styles.orderItems}>
                       {o.parsed_order.items.map((item, idx) => (
-                        <div key={idx} style={{ marginBottom: "2px" }}>
-                          • {item.quantity} {item.attributes?.unit || "piece"} - <strong>{item.description}</strong>
+                        <div key={idx} style={{ marginBottom: "4px" }}>
+                          • {item.quantity} {item.attributes?.unit || (language === "en" ? "piece" : "पीस")} - <strong>{item.description}</strong>
                           {item.attributes && Object.keys(item.attributes).filter(k => k !== "unit").length > 0 && (
-                            <span style={{ fontSize: "10px", color: "var(--accent-secondary)", marginLeft: "6px" }}>
+                            <span style={{ fontSize: "11px", color: "var(--accent-secondary)", marginLeft: "6px" }}>
                               ({Object.entries(item.attributes).filter(([k]) => k !== "unit").map(([k, v]) => `${k}: ${v}`).join(", ")})
                             </span>
                           )}
@@ -283,37 +447,39 @@ export default function Dashboard() {
                     </div>
                     <div className={styles.orderFooter}>
                       <span className={styles.amount}>
-                        {o.parsed_order.amount !== null ? `₹${o.parsed_order.amount}` : "No Amount"}
+                        {o.parsed_order.amount !== null ? `₹${o.parsed_order.amount}` : t.noAmount}
                       </span>
                       <div className={styles.statusIndicator}>
                         {/* Toggle completion status button */}
                         <button 
                           className={`${styles.button} ${styles.buttonSecondary}`} 
-                          style={{ padding: "2px 6px", fontSize: "10px" }}
+                          style={{ minHeight: "36px", padding: "6px 12px", fontSize: "12px", fontWeight: "bold" }}
                           onClick={() => toggleOrderCompletion(o.id)}
                         >
-                          {o.is_completed ? "✓ Done" : "Active"}
+                          {o.is_completed ? (language === "en" ? "✓ Done" : "✓ पूरा") : (language === "en" ? "Active" : "चालू")}
                         </button>
                         {/* Toggle payment status button */}
                         <button 
-                          className={`${styles.button} ${styles.buttonSecondary}`} 
+                          className={`${styles.button} ${o.payment_status === "paid" ? styles.buttonSecondary : styles.buttonWarning}`} 
                           style={{ 
-                            padding: "2px 6px", 
-                            fontSize: "10px", 
-                            color: o.payment_status === "paid" ? "var(--accent-success)" : "var(--accent-warning)" 
+                            minHeight: "36px", 
+                            padding: "6px 12px", 
+                            fontSize: "12px", 
+                            fontWeight: "bold",
+                            color: o.payment_status === "paid" ? "var(--accent-success)" : "#ffffff"
                           }}
                           onClick={() => togglePaymentStatus(o.id)}
                         >
-                          {o.payment_status === "paid" ? "Paid" : "Unpaid"}
+                          {o.payment_status === "paid" ? t.paid : t.unpaid}
                         </button>
                         {/* Clarification alert indicator */}
                         {o.parsed_order.needs_clarification && (
-                          <span style={{ color: "var(--accent-warning)", fontSize: "13px" }} title="Needs Clarification">⚠️</span>
+                          <span style={{ fontSize: "18px" }} title="Needs Clarification">⚠️</span>
                         )}
                         {/* Sync status indicator */}
                         <span 
                           style={{ 
-                            fontSize: "8px", 
+                            fontSize: "12px", 
                             color: o.sync_status === "synced" ? "var(--accent-success)" : "var(--accent-warning)" 
                           }}
                           title={`Sync Status: ${o.sync_status}`}
@@ -334,39 +500,36 @@ export default function Dashboard() {
           {/* Widget A: Temporal Triage */}
           <div className={styles.card}>
             <div className={styles.widgetHeader}>
-              <span className={styles.widgetTitle}>⏱️ Temporal Triage</span>
-              <span className={styles.badge} style={{ background: "rgba(255, 255, 255, 0.05)" }}>
-                Today / Overdue
-              </span>
+              <span className={styles.widgetTitle}>{t.temporalTriage}</span>
             </div>
             <div className={styles.widgetContent}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <span style={{ fontSize: "11px", fontWeight: "600", color: "var(--accent-danger)" }}>OVERDUE INCOMPLETE</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                <span style={{ fontSize: "12px", fontWeight: "800", color: "#b91c1c" }}>{t.overdue.toUpperCase()}</span>
                 {overdueOrders.length === 0 ? (
-                  <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>No overdue orders. Good job!</span>
+                  <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{language === "en" ? "No overdue orders. Good job!" : "कोई काम बाकी नहीं है। बहुत बढ़िया!"}</span>
                 ) : (
                   overdueOrders.map(o => (
                     <div key={o.id} className={`${styles.dueItem} ${styles.dueOverdue}`}>
                       <div className={styles.dueItemText}>
-                        <strong>{o.customer || "Walk-in"}</strong>
+                        <strong>{o.customer || (language === "en" ? "Walk-in" : "बिना नाम")}</strong>
                         <span>{o.parsed_order.items.map(i => `${i.quantity} ${i.description}`).join(", ")}</span>
                       </div>
-                      <span>Due: {o.due_date}</span>
+                      <span>{t.due}: {o.due_date}</span>
                     </div>
                   ))
                 )}
 
-                <span style={{ fontSize: "11px", fontWeight: "600", color: "var(--accent-warning)", marginTop: "12px" }}>DUE TODAY</span>
+                <span style={{ fontSize: "12px", fontWeight: "800", color: "#b45309", marginTop: "12px" }}>{t.dueToday.toUpperCase()}</span>
                 {todayOrders.length === 0 ? (
-                  <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>No tasks due today.</span>
+                  <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{language === "en" ? "No tasks due today." : "आज के लिए कोई डिलीवरी नहीं है।"}</span>
                 ) : (
                   todayOrders.map(o => (
                     <div key={o.id} className={`${styles.dueItem} ${styles.dueToday}`}>
                       <div className={styles.dueItemText}>
-                        <strong>{o.customer || "Walk-in"}</strong>
+                        <strong>{o.customer || (language === "en" ? "Walk-in" : "बिना नाम")}</strong>
                         <span>{o.parsed_order.items.map(i => `${i.quantity} ${i.description}`).join(", ")}</span>
                       </div>
-                      <span>Today</span>
+                      <span>{language === "en" ? "Today" : "आज"}</span>
                     </div>
                   ))
                 )}
@@ -376,22 +539,22 @@ export default function Dashboard() {
 
           {/* Widget B: Financial Reconciliation */}
           <div className={styles.card}>
-            <div className={styles.widgetHeader}>
-              <span className={styles.widgetTitle}>💳 Outstanding Ledgers</span>
-              <span className={styles.badge} style={{ background: "rgba(6, 182, 212, 0.15)", color: "var(--accent-secondary)" }}>
+            <div className={styles.widgetHeader} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span className={styles.widgetTitle}>{t.outstandingLedger}</span>
+              <span className={styles.badge} style={{ background: "#fee2e2", color: "#b91c1c", border: "1.5px solid #b91c1c", fontSize: "13px" }}>
                 Total: ₹{totalDebt}
               </span>
             </div>
             <div className={styles.widgetContent}>
               {financialLedger.length === 0 ? (
-                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "12px", marginTop: "24px" }}>
-                  All accounts settled. No pending debt!
+                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "13px", padding: "12px 0" }}>
+                  {t.settled}
                 </div>
               ) : (
                 financialLedger.map((ledger, idx) => (
                   <div key={idx} className={styles.debtItem}>
                     <span>{ledger.name}</span>
-                    <strong style={{ color: "var(--accent-danger)" }}>₹{ledger.amount}</strong>
+                    <strong style={{ color: "#b91c1c", fontSize: "16px" }}>₹{ledger.amount}</strong>
                   </div>
                 ))
               )}
@@ -401,12 +564,12 @@ export default function Dashboard() {
           {/* Widget C: Historical Continuity */}
           <div className={styles.card}>
             <div className={styles.widgetHeader}>
-              <span className={styles.widgetTitle}>📋 Historical Continuity</span>
+              <span className={styles.widgetTitle}>{t.historicalContinuity}</span>
             </div>
             <div className={styles.widgetContent}>
               {uniqueCustomers.length === 0 ? (
-                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "12px", marginTop: "24px" }}>
-                  No customer profiles found.
+                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "13px", padding: "12px 0" }}>
+                  {t.noHistory}
                 </div>
               ) : (
                 <>
@@ -424,19 +587,19 @@ export default function Dashboard() {
 
                   {lastCustomerOrder ? (
                     <div className={styles.historyDetails}>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-                        <strong>Last Order Record</strong>
-                        <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
+                        <strong style={{ color: "#000" }}>{t.lastOrderRecord}</strong>
+                        <span style={{ fontSize: "11px", fontWeight: "bold", color: "var(--text-muted)" }}>
                           {new Date(lastCustomerOrder.created_at).toLocaleDateString()}
                         </span>
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                         {lastCustomerOrder.parsed_order.items.map((item, idx) => (
-                          <div key={idx} style={{ padding: "4px 0", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
+                          <div key={idx} style={{ padding: "4px 0" }}>
                             <strong>{item.quantity} {item.attributes?.unit || "piece"}</strong> - {item.description}
                             {item.attributes && Object.keys(item.attributes).filter(k => k !== "unit").length > 0 && (
-                              <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "2px" }}>
-                                Specs: {JSON.stringify(item.attributes)}
+                              <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+                                Specs: {Object.entries(item.attributes).filter(([k]) => k !== "unit").map(([k, v]) => `${k}: ${v}`).join(", ")}
                               </div>
                             )}
                           </div>
@@ -444,7 +607,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                   ) : (
-                    <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>No history found for X.</span>
+                    <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{t.noHistoryForCustomer}</span>
                   )}
                 </>
               )}
@@ -454,10 +617,7 @@ export default function Dashboard() {
           {/* Widget D: Capacity Planning */}
           <div className={styles.card}>
             <div className={styles.widgetHeader}>
-              <span className={styles.widgetTitle}>📊 Weekly Capacity</span>
-              <span className={styles.badge} style={{ background: "rgba(255, 255, 255, 0.05)" }}>
-                7-Day Rolling
-              </span>
+              <span className={styles.widgetTitle}>{t.weeklyCapacity}</span>
             </div>
             <div className={styles.widgetContent} style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div className={styles.capacityVal}>
@@ -468,14 +628,63 @@ export default function Dashboard() {
                   className={styles.capacityBar} 
                   style={{ 
                     width: `${capacityMetrics.percentage}%`,
-                    background: capacityMetrics.percentage > 85 ? "var(--accent-danger)" : "linear-gradient(to right, var(--accent-secondary), var(--accent-primary))"
+                    background: capacityMetrics.percentage > 85 ? "#b91c1c" : "#2563eb"
                   }}
                 />
               </div>
               <div className={styles.capacityInfo}>
-                {capacityMetrics.percentage}% of weekly capacity committed. 
-                {capacityMetrics.percentage > 85 && <div style={{ color: "var(--accent-danger)", fontWeight: "600", marginTop: "4px" }}>⚠️ High Workload Warning!</div>}
+                {capacityMetrics.percentage}% {t.capacityCommitted}
+                {capacityMetrics.percentage > 85 && <div style={{ color: "#b91c1c", fontWeight: "800", marginTop: "6px" }}>{t.highWorkload}</div>}
               </div>
+            </div>
+          </div>
+
+          {/* Widget E: Completed Orders */}
+          <div className={styles.card} style={{ gridColumn: "span 2" }}>
+            <div className={styles.widgetHeader}>
+              <span className={styles.widgetTitle}>✓ {language === "en" ? "Completed Orders" : "पूरे हो चुके ऑर्डर्स"} ({completedOrders.length})</span>
+            </div>
+            <div className={styles.widgetContent}>
+              {completedOrders.length === 0 ? (
+                <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: "14px", padding: "12px 0" }}>
+                  {language === "en" ? "No completed orders yet." : "अभी तक कोई ऑर्डर पूरा नहीं हुआ है।"}
+                </div>
+              ) : (
+                <div className={styles.orderList}>
+                  {completedOrders.map(o => (
+                    <div key={o.id} className={styles.orderCard} style={{ opacity: 0.8, background: "#f9fafb" }}>
+                      <div className={styles.orderCardHeader}>
+                        <span className={styles.customerName} style={{ textDecoration: "line-through", color: "var(--text-muted)" }}>
+                          {o.customer || (language === "en" ? "Walk-in Customer" : "बिना नाम का ग्राहक")}
+                        </span>
+                        <span className={styles.orderDate}>{t.due}: {o.due_date || "N/A"}</span>
+                      </div>
+                      <div className={styles.orderItems} style={{ textDecoration: "line-through", color: "var(--text-muted)" }}>
+                        {o.parsed_order.items.map((item, idx) => (
+                          <div key={idx} style={{ marginBottom: "2px" }}>
+                            • {item.quantity} {item.attributes?.unit || "piece"} - {item.description}
+                          </div>
+                        ))}
+                      </div>
+                      <div className={styles.orderFooter}>
+                        <span className={styles.amount}>₹{o.parsed_order.amount || 0}</span>
+                        <div className={styles.statusIndicator}>
+                          <button 
+                            className={`${styles.button} ${styles.buttonSecondary}`} 
+                            style={{ minHeight: "36px", padding: "6px 12px", fontSize: "12px", fontWeight: "bold" }}
+                            onClick={() => toggleOrderCompletion(o.id)}
+                          >
+                            🔄 {language === "en" ? "Make Active" : "चालू करें"}
+                          </button>
+                          <span style={{ fontSize: "12px", color: "var(--accent-success)", fontWeight: "bold" }}>
+                            {language === "en" ? "Completed" : "पूर्ण"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -485,18 +694,18 @@ export default function Dashboard() {
       {isConflictModalOpen && conflicts.length > 0 && (
         <div className={styles.modalBackdrop}>
           <div className={styles.modal}>
-            <h2 style={{ fontSize: "16px", fontWeight: "700", color: "var(--accent-warning)" }}>
-              ⚠️ Resolve Offline Synchronization Conflicts
+            <h2 style={{ fontSize: "16px", fontWeight: "700", color: "#b45309" }}>
+              {language === "en" ? "⚠️ Resolve Offline Synchronization Conflicts" : "⚠️ ऑफ़लाइन सिंक विरोधों को सुलझाएं"}
             </h2>
-            <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
-              Concurrent modifications were detected while offline. Select the authoritative value for each field below:
+            <p style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
+              {language === "en" ? "Concurrent modifications were detected while offline. Select the authoritative value for each field below:" : "ऑफ़लाइन रहते हुए एक से अधिक बदलाव किए गए थे। कृपया सही मान चुनें:"}
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxHeight: "300px", overflowY: "auto" }}>
               {conflicts.map(conflict => (
                 <div key={conflict.id} className={styles.conflictItem}>
-                  <div style={{ fontSize: "12px", fontWeight: "600", borderBottom: "1px solid rgba(255,255,255,0.04)", paddingBottom: "4px" }}>
-                    Field: <span style={{ color: "var(--accent-secondary)" }}>{conflict.field}</span> (Order ID: {conflict.order_id.substring(0, 8)})
+                  <div style={{ fontSize: "13px", fontWeight: "800", borderBottom: "1px solid #d97706", paddingBottom: "6px", color: "#000" }}>
+                    {language === "en" ? "Field" : "बदलाव का विषय"}: <span style={{ color: "#2563eb" }}>{conflict.field}</span> (ID: {conflict.order_id.substring(0, 8)})
                   </div>
                   
                   <div className={styles.conflictColumnGrid}>
@@ -505,11 +714,19 @@ export default function Dashboard() {
                       className={styles.conflictOption} 
                       onClick={() => resolveConflict(conflict.order_id, conflict.field, conflict.local_value)}
                     >
-                      <span className={styles.conflictLabel}>Local Device</span>
-                      <span className={styles.conflictValue}>
-                        {typeof conflict.local_value === "object" ? JSON.stringify(conflict.local_value) : String(conflict.local_value)}
+                      <span className={styles.conflictLabel}>
+                        {conflict.field === "delete" 
+                          ? (conflict.local_value === "delete" ? (language === "en" ? "Delete Order" : "ऑर्डर मिटाएं") : (language === "en" ? "Restore Order" : "ऑर्डर वापस लाएं"))
+                          : (language === "en" ? "Local Device" : "इस फ़ोन का बदलाव")}
                       </span>
-                      <span className={styles.conflictTime}>Time: {conflict.local_timestamp.split(":")[0]}</span>
+                      <span className={styles.conflictValue}>
+                        {conflict.field === "delete"
+                          ? (conflict.local_value === "delete" ? (language === "en" ? "Confirm Deletion" : "मिटाना पक्का करें") : (language === "en" ? "Keep Order & Apply Updates" : "ऑर्डर रखें और बदलाव लगाएं"))
+                          : (typeof conflict.local_value === "object" ? JSON.stringify(conflict.local_value) : String(conflict.local_value))}
+                      </span>
+                      <span className={styles.conflictTime}>
+                        {conflict.field === "delete" ? "" : `${language === "en" ? "Device" : "डिवाइस"}: ${conflict.local_timestamp}`}
+                      </span>
                     </div>
 
                     {/* Option B: Remote Value */}
@@ -517,11 +734,19 @@ export default function Dashboard() {
                       className={styles.conflictOption} 
                       onClick={() => resolveConflict(conflict.order_id, conflict.field, conflict.remote_value)}
                     >
-                      <span className={styles.conflictLabel}>Sync Peer (Remote)</span>
-                      <span className={styles.conflictValue}>
-                        {typeof conflict.remote_value === "object" ? JSON.stringify(conflict.remote_value) : String(conflict.remote_value)}
+                      <span className={styles.conflictLabel}>
+                        {conflict.field === "delete" 
+                          ? (conflict.remote_value === "delete" ? (language === "en" ? "Delete Order" : "ऑर्डर मिटाएं") : (language === "en" ? "Restore Order" : "ऑर्डर वापस लाएं"))
+                          : (language === "en" ? "Sync Peer (Remote)" : "दूसरे फ़ोन का बदलाव")}
                       </span>
-                      <span className={styles.conflictTime}>Time: {conflict.remote_timestamp.split(":")[0]}</span>
+                      <span className={styles.conflictValue}>
+                        {conflict.field === "delete"
+                          ? (conflict.remote_value === "delete" ? (language === "en" ? "Confirm Deletion" : "मिटाना पक्का करें") : (language === "en" ? "Keep Order & Apply Updates" : "ऑर्डर रखें और बदलाव लगाएं"))
+                          : (typeof conflict.remote_value === "object" ? JSON.stringify(conflict.remote_value) : String(conflict.remote_value))}
+                      </span>
+                      <span className={styles.conflictTime}>
+                        {conflict.field === "delete" ? "" : `${language === "en" ? "Device" : "डिवाइस"}: ${conflict.remote_timestamp}`}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -533,7 +758,7 @@ export default function Dashboard() {
               style={{ alignSelf: "flex-end" }} 
               onClick={() => setIsConflictModalOpen(false)}
             >
-              Close Resolver
+              {language === "en" ? "Close" : "बंद करें"}
             </button>
           </div>
         </div>

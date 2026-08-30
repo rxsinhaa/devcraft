@@ -1,164 +1,78 @@
 [
   {
     "customer": null,
-    "items": [
-      {
-        "description": "potato",
-        "quantity": 2,
-        "attributes": {
-          "unit": "kg"
-        }
-      },
-      {
-        "description": "milk",
-        "quantity": 1,
-        "attributes": {
-          "unit": "packet"
-        }
-      }
-    ],
+    "items": [],
     "due_date": "2026-08-30",
     "amount": 150,
     "references_prior_order": false,
-    "confidence": 0.8,
-    "needs_clarification": false
+    "confidence": 0.1,
+    "needs_clarification": true
   },
   {
     "customer": null,
     "items": [
       {
-        "description": "sugar",
-        "quantity": 5,
-        "attributes": {
-          "unit": "kg"
-        }
-      },
-      {
-        "description": "bread",
+        "description": "bread loaf",
         "quantity": 2,
-        "attributes": {
-          "unit": "box"
-        }
+        "attributes": {}
       }
     ],
     "due_date": null,
     "amount": null,
     "references_prior_order": false,
-    "confidence": 0.8,
+    "confidence": 1,
     "needs_clarification": false
   },
   {
     "customer": null,
-    "items": [
-      {
-        "description": "momos",
-        "quantity": 1,
-        "attributes": {
-          "unit": "plate"
-        }
-      }
-    ],
+    "items": [],
     "due_date": null,
     "amount": null,
-    "references_prior_order": true,
-    "confidence": 0.8,
-    "needs_clarification": false
+    "references_prior_order": false,
+    "confidence": 0.1,
+    "needs_clarification": true
   },
   {
     "customer": null,
-    "items": [
-      {
-        "description": "samosa",
-        "quantity": 3,
-        "attributes": {
-          "unit": "plate"
-        }
-      },
-      {
-        "description": "sweet",
-        "quantity": 2,
-        "attributes": {
-          "unit": "dabba"
-        }
-      }
-    ],
+    "items": [],
     "due_date": null,
     "amount": 600,
     "references_prior_order": false,
-    "confidence": 0.8,
-    "needs_clarification": false
+    "confidence": 0.1,
+    "needs_clarification": true
+  },
+  {
+    "customer": null,
+    "items": [],
+    "due_date": null,
+    "amount": null,
+    "references_prior_order": false,
+    "confidence": 0.1,
+    "needs_clarification": true
+  },
+  {
+    "customer": null,
+    "items": [],
+    "due_date": "2026-08-30",
+    "amount": null,
+    "references_prior_order": true,
+    "confidence": 0.1,
+    "needs_clarification": true
   },
   {
     "customer": null,
     "items": [
       {
-        "description": "coriander",
-        "quantity": 1,
-        "attributes": {
-          "unit": "piece"
-        }
-      },
-      {
-        "description": "onion",
-        "quantity": 2,
-        "attributes": {
-          "unit": "kg"
-        }
-      },
-      {
-        "description": "potato",
-        "quantity": 1,
-        "attributes": {
-          "unit": "piece"
-        }
+        "description": "cookies",
+        "quantity": 5,
+        "attributes": {}
       }
     ],
     "due_date": null,
     "amount": null,
     "references_prior_order": false,
-    "confidence": 0.4,
+    "confidence": 1,
     "needs_clarification": true
-  },
-  {
-    "customer": null,
-    "items": [
-      {
-        "description": "purana wahi tiffin repeat do",
-        "quantity": 1,
-        "attributes": {
-          "unit": "piece"
-        }
-      }
-    ],
-    "due_date": "2026-08-30",
-    "amount": null,
-    "references_prior_order": true,
-    "confidence": 0.4,
-    "needs_clarification": true
-  },
-  {
-    "customer": null,
-    "items": [
-      {
-        "description": "biscuit",
-        "quantity": 5,
-        "attributes": {
-          "unit": "packet"
-        }
-      },
-      {
-        "description": "milk",
-        "quantity": 10,
-        "attributes": {
-          "unit": "ltr"
-        }
-      }
-    ],
-    "due_date": "2026-09-12",
-    "amount": null,
-    "references_prior_order": false,
-    "confidence": 0.8,
-    "needs_clarification": false
   },
   {
     "customer": null,
@@ -166,56 +80,37 @@
       {
         "description": "rice",
         "quantity": 1,
-        "attributes": {
-          "unit": "bori"
-        }
+        "attributes": {}
       }
     ],
     "due_date": null,
     "amount": 1200,
     "references_prior_order": false,
-    "confidence": 0.8,
+    "confidence": 1,
     "needs_clarification": false
   },
   {
     "customer": null,
     "items": [
       {
-        "description": "cottage cheese",
+        "description": "paneer sabzi",
         "quantity": 3,
-        "attributes": {
-          "unit": "pau"
-        }
-      },
-      {
-        "description": "coriander",
-        "quantity": 2,
-        "attributes": {
-          "unit": "gaddi"
-        }
+        "attributes": {}
       }
     ],
     "due_date": null,
     "amount": null,
     "references_prior_order": false,
-    "confidence": 0.8,
+    "confidence": 1,
     "needs_clarification": false
   },
   {
     "customer": null,
-    "items": [
-      {
-        "description": "mango",
-        "quantity": 10,
-        "attributes": {
-          "unit": "box"
-        }
-      }
-    ],
-    "due_date": "2026-09-08",
+    "items": [],
+    "due_date": "2026-09-01",
     "amount": null,
     "references_prior_order": false,
-    "confidence": 0.8,
-    "needs_clarification": false
+    "confidence": 0.1,
+    "needs_clarification": true
   }
 ]

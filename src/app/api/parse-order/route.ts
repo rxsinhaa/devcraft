@@ -110,7 +110,7 @@ export async function POST(request: Request) {
 
   try {
 
-    const modelName = "gemini-3.6-flash";
+    const modelName = "gemini-1.5-flash";
     const model = genAI.getGenerativeModel({
       model: modelName,
       systemInstruction: systemInstruction,
@@ -227,7 +227,9 @@ Message to parse: "${message}"
       !parsedJson.due_date ||
       !/^\d{4}-\d{2}-\d{2}/.test(parsedJson.due_date)
     ) {
-      parsedJson.due_date = parsedJson.due_date && /^\d{4}-\d{2}-\d{2}/.test(parsedJson.due_date) ? parsedJson.due_date : null;
+      parsedJson.due_date = null;
+    } else {
+      parsedJson.due_date = parsedJson.due_date.substring(0, 10);
     }
 
     // Clean amount: support both prefix ("Rs 150", "₹1200") and suffix ("150 rs", "600/-")

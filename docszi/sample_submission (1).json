@@ -1,0 +1,132 @@
+[
+ {
+  "id": "train-0001",
+  "customer": null,
+  "items": [
+   {
+    "description": "socket",
+    "quantity": 2,
+    "attributes": {
+     "brand": "Havells",
+     "issue": "fuse blown"
+    }
+   },
+   {
+    "description": "wiring",
+    "quantity": 3,
+    "attributes": {
+     "brand": "Anchor",
+     "issue": "leaking current"
+    }
+   }
+  ],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 1.0,
+  "needs_clarification": true
+ },
+ {
+  "id": "train-0002",
+  "customer": null,
+  "items": [
+   {
+    "description": "pant",
+    "quantity": 1,
+    "attributes": {
+     "chest": 40
+    }
+   },
+   {
+    "description": "pajama",
+    "quantity": 2,
+    "attributes": {
+     "fit": "regular",
+     "chest": 34
+    }
+   },
+   {
+    "description": "blouse",
+    "quantity": 1,
+    "attributes": {
+     "fit": "slim",
+     "waist": 38,
+     "chest": 44
+    }
+   }
+  ],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 1.0,
+  "needs_clarification": false
+ },
+ {
+  "id": "train-0003",
+  "customer": "Sarita didi",
+  "items": [
+   {
+    "description": "rajma",
+    "quantity": 4,
+    "attributes": {
+     "days": 5
+    }
+   }
+  ],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": true,
+  "confidence": 1.0,
+  "needs_clarification": false
+ },
+ {
+  "id": "train-0004",
+  "customer": null,
+  "items": [],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 0.0,
+  "needs_clarification": true
+ },
+ {
+  "id": "train-0005",
+  "customer": null,
+  "items": [],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 0.0,
+  "needs_clarification": true
+ },
+ {
+  "id": "train-0006",
+  "customer": null,
+  "items": [],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 0.0,
+  "needs_clarification": true
+ },
+ {
+  "id": "train-0007",
+  "customer": null,
+  "items": [],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 0.0,
+  "needs_clarification": true
+ },
+ {
+  "id": "train-0008",
+  "customer": null,
+  "items": [],
+  "due_date": null,
+  "amount": null,
+  "references_prior_order": false,
+  "confidence": 0.0,
+  "needs_clarification": true
+ }
+]

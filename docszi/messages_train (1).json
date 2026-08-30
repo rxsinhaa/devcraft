@@ -1,0 +1,6835 @@
+[
+ {
+  "id": "train-0001",
+  "domain": "electrician",
+  "received_at": "2026-08-30T08:14:00+05:30",
+  "message": "bhaiya geyser nahi, 2 socket ka fuse ud gaya, Havells wale, aur 3 wiring me current aa raha hai Anchor ki. thoda jaldi dekh lo",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "socket",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Havells",
+      "issue": "fuse blown"
+     }
+    },
+    {
+     "description": "wiring",
+     "quantity": 3,
+     "attributes": {
+      "brand": "Anchor",
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0002",
+  "domain": "tailor",
+  "received_at": "2026-09-16T09:31:00+05:30",
+  "message": "shirt nahi, ek pant chest 40, do pyjama regular fit chest 34, aur 1 blouse slim waist 38 chest 44. sab silwa dena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pant",
+     "quantity": 1,
+     "attributes": {
+      "chest": 40
+     }
+    },
+    {
+     "description": "pajama",
+     "quantity": 2,
+     "attributes": {
+      "fit": "regular",
+      "chest": 34
+     }
+    },
+    {
+     "description": "blouse",
+     "quantity": 1,
+     "attributes": {
+      "fit": "slim",
+      "waist": 38,
+      "chest": 44
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0003",
+  "domain": "tiffin",
+  "received_at": "2026-10-11T20:22:00+05:30",
+  "message": "Sarita didi ke liye राजमा char, 5 din ke liye, last time jaisa hi banana",
+  "expected": {
+   "customer": "Sarita didi",
+   "items": [
+    {
+     "description": "rajma",
+     "quantity": 4,
+     "attributes": {
+      "days": 5
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0004",
+  "domain": "tailor",
+  "received_at": "2026-08-25T16:45:00+05:30",
+  "message": "Kavita ke liye ek koti banwani hai rayon ki, chest chhattis. next week kabhi bhi de dena",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "waistcoat",
+     "quantity": 1,
+     "attributes": {
+      "fabric": "rayon",
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0005",
+  "domain": "tailor",
+  "received_at": "2026-10-04T08:22:00+05:30",
+  "message": "Farida ji 3 shirt chahiye size M, chest chhattis. thoda jaldi ho jaye to acha rahega",
+  "expected": {
+   "customer": "Farida",
+   "items": [
+    {
+     "description": "shirt",
+     "quantity": 3,
+     "attributes": {
+      "size": "M",
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0006",
+  "domain": "electrician",
+  "received_at": "2026-10-06T14:53:00+05:30",
+  "message": "geyser nahi, ek wiring dheema chal raha hai aur 2 switchboard me jhatka lag raha hai, 9 Oct tak dekh lo, 300 rs tak ka kaam hai",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "issue": "slow"
+     }
+    },
+    {
+     "description": "switch board",
+     "quantity": 2,
+     "attributes": {
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": "2026-10-09",
+   "amount": 300.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0007",
+  "domain": "baker",
+  "received_at": "2026-09-15T11:14:00+05:30",
+  "message": "Rakesh bol raha hu. ek cake, ek पेस्ट्री aur do cheese cake. pastry round eggless coffee wali, cheese cake vanilla 1.5 kg, cake red velvet 1.5 kg. pehle jaisa hi rakhna",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "cake",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 1.5,
+      "flavour": "red velvet"
+     }
+    },
+    {
+     "description": "pastry",
+     "quantity": 1,
+     "attributes": {
+      "shape": "round",
+      "egg_free": true,
+      "flavour": "coffee"
+     }
+    },
+    {
+     "description": "cheesecake",
+     "quantity": 2,
+     "attributes": {
+      "weight_kg": 1.5,
+      "flavour": "vanilla"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0008",
+  "domain": "tailor",
+  "received_at": "2026-08-19T12:22:00+05:30",
+  "message": "paanch ya chhe pent maroon rang, loose rakhna, 1500 rs tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pant",
+     "quantity": 5,
+     "attributes": {
+      "color": "maroon",
+      "fit": "loose"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 1500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0009",
+  "domain": "tailor",
+  "received_at": "2026-09-21T12:00:00+05:30",
+  "message": "do kameez navy blue aur ४ shart waist tees length 46 chest 36, parso tak chahiye",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kameez",
+     "quantity": 2,
+     "attributes": {
+      "color": "navy blue"
+     }
+    },
+    {
+     "description": "shirt",
+     "quantity": 4,
+     "attributes": {
+      "waist": 30,
+      "length": 46,
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": "2026-09-23",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0010",
+  "domain": "tiffin",
+  "received_at": "2026-08-18T09:53:00+05:30",
+  "message": "bhaiya agle shanivar ke liye wahi wala bhijwa dena, jo hamesha bhejte ho",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0011",
+  "domain": "tailor",
+  "received_at": "2026-09-27T18:22:00+05:30",
+  "message": "Ramesh ji ka order. pant 2 length 40, 18 tarikh tak",
+  "expected": {
+   "customer": "Ramesh",
+   "items": [
+    {
+     "description": "pant",
+     "quantity": 2,
+     "attributes": {
+      "length": 40
+     }
+    }
+   ],
+   "due_date": "2026-10-18",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0012",
+  "domain": "tailor",
+  "received_at": "2026-09-04T09:53:00+05:30",
+  "message": "१ suit linen ka pink color, aur pant slim fit. jaldi, 18 tareekh tak ho jayega?",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "suit",
+     "quantity": 1,
+     "attributes": {
+      "fabric": "linen",
+      "color": "pink"
+     }
+    },
+    {
+     "description": "pant",
+     "quantity": 1,
+     "attributes": {
+      "fit": "slim"
+     }
+    }
+   ],
+   "due_date": "2026-09-18",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0013",
+  "domain": "tailor",
+  "received_at": "2026-09-20T18:53:00+05:30",
+  "message": "Naveen ke naam se do ya teen pant chiffon chest 40, 15 tarikh tak, 2500 ke andar",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "pant",
+     "quantity": 2,
+     "attributes": {
+      "fabric": "chiffon",
+      "chest": 40
+     }
+    }
+   ],
+   "due_date": "2026-10-15",
+   "amount": 2500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0014",
+  "domain": "tailor",
+  "received_at": "2026-09-30T20:14:00+05:30",
+  "message": "Naveen ji, char lehenga size M bottle green waist chalis chest 36 aur paanch pajama length 38 XL 3/4 sleeve. aaj tak, last wale jaisa",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 4,
+     "attributes": {
+      "size": "M",
+      "color": "bottle green",
+      "waist": 40,
+      "chest": 36
+     }
+    },
+    {
+     "description": "pajama",
+     "quantity": 5,
+     "attributes": {
+      "length": 38,
+      "size": "XL",
+      "sleeve": "three-quarter"
+     }
+    }
+   ],
+   "due_date": "2026-09-30",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0015",
+  "domain": "tailor",
+  "received_at": "2026-10-08T13:31:00+05:30",
+  "message": "teen ya char west coat banwane hain",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "waistcoat",
+     "quantity": 3,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0016",
+  "domain": "electrician",
+  "received_at": "2026-10-04T20:22:00+05:30",
+  "message": "2 ghanti lagwani hai kitchen me, guruvar ko nahi, shukravar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 2,
+     "attributes": {
+      "room": "kitchen"
+     }
+    }
+   ],
+   "due_date": "2026-10-09",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0017",
+  "domain": "electrician",
+  "received_at": "2026-08-23T15:14:00+05:30",
+  "message": "Naveen ke ghar inverter short ho gaya hai, hall wala, do hazaar watt ka. agle ravivar tak dekh lena",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "inverter",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 2000,
+      "room": "hall",
+      "issue": "short circuit"
+     }
+    }
+   ],
+   "due_date": "2026-08-30",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0018",
+  "domain": "electrician",
+  "received_at": "2026-08-25T13:07:00+05:30",
+  "message": "geyser se awaaz aa rahi hai, Polycab ka hai. agle hafte dekh lo bhaiya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Polycab",
+      "issue": "noise"
+     }
+    }
+   ],
+   "due_date": "2026-09-01",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0019",
+  "domain": "tiffin",
+  "received_at": "2026-10-11T19:45:00+05:30",
+  "message": "Anil ji ke liye nahi, Vikram ke liye १ sabji, 8 tarikh tak, 250 rs, pichli baar jaisa",
+  "expected": {
+   "customer": "Vikram",
+   "items": [
+    {
+     "description": "sabzi",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-11-08",
+   "amount": 250.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0020",
+  "domain": "electrician",
+  "received_at": "2026-09-04T14:53:00+05:30",
+  "message": "do motor Anchor ke, somvar ko nahi, guruvar ko dekh lena zara",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "water motor",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Anchor"
+     }
+    }
+   ],
+   "due_date": "2026-09-10",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0021",
+  "domain": "tailor",
+  "received_at": "2026-10-06T15:07:00+05:30",
+  "message": "Neha ke liye suit nahi, 2 sherwani mustard color, is weekend tak",
+  "expected": {
+   "customer": "Neha",
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 2,
+     "attributes": {
+      "color": "mustard"
+     }
+    }
+   ],
+   "due_date": "2026-10-10",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0022",
+  "domain": "electrician",
+  "received_at": "2026-09-03T15:00:00+05:30",
+  "message": "१ AC point lagwana hai, fan wala, 2000 watt, purana spark kar raha hai. jaldi, 6 din me, 500 tak, last time jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "ac point",
+     "quantity": 1,
+     "attributes": {
+      "appliance": "fan",
+      "wattage": 2000,
+      "issue": "spark"
+     }
+    }
+   ],
+   "due_date": "2026-09-09",
+   "amount": 500.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0023",
+  "domain": "electrician",
+  "received_at": "2026-09-06T19:00:00+05:30",
+  "message": "motor aur geyser dono me short ho gaya, Orient ka hai. diwali se pehle kar dena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "water motor",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Orient",
+      "appliance": "geyser",
+      "issue": "short circuit"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0024",
+  "domain": "baker",
+  "received_at": "2026-10-09T18:07:00+05:30",
+  "message": "do cookies chahiye square shape, eggless, black forest flavour. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cookies",
+     "quantity": 2,
+     "attributes": {
+      "shape": "square",
+      "egg_free": true,
+      "flavour": "black forest"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0025",
+  "domain": "tailor",
+  "received_at": "2026-09-01T08:00:00+05:30",
+  "message": "Anil ji ke liye pant nahi, kurta loose chest 42, aur ek lehenga size M linen ka. parso tak, 250 ke andar",
+  "expected": {
+   "customer": "Anil ji",
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 1,
+     "attributes": {
+      "fit": "loose",
+      "chest": 42
+     }
+    },
+    {
+     "description": "lehenga",
+     "quantity": 1,
+     "attributes": {
+      "size": "M",
+      "fabric": "linen"
+     }
+    }
+   ],
+   "due_date": "2026-09-03",
+   "amount": 250.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0026",
+  "domain": "electrician",
+  "received_at": "2026-08-24T20:45:00+05:30",
+  "message": "pankha char balcony wale, short ho gaya hai, 40 watt ke. agle somvar tak, 300 me ho jayega?",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "ceiling fan",
+     "quantity": 4,
+     "attributes": {
+      "wattage": 40,
+      "room": "balcony",
+      "issue": "short circuit"
+     }
+    }
+   ],
+   "due_date": "2026-08-31",
+   "amount": 300.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0027",
+  "domain": "tiffin",
+  "received_at": "2026-09-02T20:07:00+05:30",
+  "message": "दही 14 din ke liye breakfast me, normal rakhna. jaldi, is weekend se shuru karna, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "curd",
+     "quantity": 1,
+     "attributes": {
+      "days": 14,
+      "spice_level": "medium",
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-09-05",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0028",
+  "domain": "electrician",
+  "received_at": "2026-10-04T13:45:00+05:30",
+  "message": "Manoj ji ke yahan paanch tubelight ka fuse ud gaya, fan wala point bhi, 100 watt. exam ke baad",
+  "expected": {
+   "customer": "Manoj",
+   "items": [
+    {
+     "description": "tube light",
+     "quantity": 5,
+     "attributes": {
+      "wattage": 100,
+      "appliance": "fan",
+      "issue": "fuse blown"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0029",
+  "domain": "electrician",
+  "received_at": "2026-09-29T20:31:00+05:30",
+  "message": "wiring ka fuse ud gaya hai phir se, is weekend tak dekh lena. last wale jaisa hi kar dena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "issue": "fuse blown"
+     }
+    }
+   ],
+   "due_date": "2026-10-03",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0030",
+  "domain": "tailor",
+  "received_at": "2026-08-20T08:00:00+05:30",
+  "message": "Sunita ke liye blouse XXL, chest chhattis",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "blouse",
+     "quantity": 1,
+     "attributes": {
+      "size": "XXL",
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0031",
+  "domain": "tailor",
+  "received_at": "2026-09-21T10:31:00+05:30",
+  "message": "Meena aunty ke liye पजामा ४, full sleeve, waist 38. festival se pehle mil jaye bas",
+  "expected": {
+   "customer": "Meena aunty",
+   "items": [
+    {
+     "description": "pajama",
+     "quantity": 4,
+     "attributes": {
+      "sleeve": "full",
+      "waist": 38
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0032",
+  "domain": "baker",
+  "received_at": "2026-08-27T10:14:00+05:30",
+  "message": "do bday cake chahiye 0.5 kg ke, 1 tier hi rakhna, 1 September tak, 650 me. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 2,
+     "attributes": {
+      "weight_kg": 0.5,
+      "tier": 1
+     }
+    }
+   ],
+   "due_date": "2026-09-01",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0033",
+  "domain": "baker",
+  "received_at": "2026-08-21T20:45:00+05:30",
+  "message": "cake nahi, Rakesh bhai ke liye char bread, 2 kg wala, coffee flavour. is weekend tak",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "bread loaf",
+     "quantity": 4,
+     "attributes": {
+      "weight_kg": 2,
+      "flavour": "coffee"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0034",
+  "domain": "baker",
+  "received_at": "2026-09-01T15:07:00+05:30",
+  "message": "pastry nahi, ek cheese cake 2 tier ka, eggless. is weekend tak chahiye",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 1,
+     "attributes": {
+      "tier": 2,
+      "egg_free": true
+     }
+    }
+   ],
+   "due_date": "2026-09-05",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0035",
+  "domain": "electrician",
+  "received_at": "2026-10-10T12:31:00+05:30",
+  "message": "३ gizer aur २ invertor dekhne hain. gizer balcony wale awaaz kar rahe, invertor Usha ke dheema chal raha hai. jaldi aa jao",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 3,
+     "attributes": {
+      "room": "balcony",
+      "issue": "noise"
+     }
+    },
+    {
+     "description": "inverter",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Usha",
+      "issue": "slow"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0036",
+  "domain": "electrician",
+  "received_at": "2026-08-17T16:53:00+05:30",
+  "message": "inverter nahi, ६ गीजर Crompton ke, motor aur balcony dono jagah current aa raha hai. tarso tak dekh lena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 6,
+     "attributes": {
+      "brand": "Crompton",
+      "appliance": "motor",
+      "room": "balcony",
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": "2026-08-20",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0037",
+  "domain": "tailor",
+  "received_at": "2026-09-08T13:00:00+05:30",
+  "message": "ek दुपट्टा, chest aadtis, agle hafte tak, 1200 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 1,
+     "attributes": {
+      "chest": 38
+     }
+    }
+   ],
+   "due_date": "2026-09-15",
+   "amount": 1200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0038",
+  "domain": "baker",
+  "received_at": "2026-10-03T09:45:00+05:30",
+  "message": "kek do 2 tier ke, 5 din me chahiye",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cake",
+     "quantity": 2,
+     "attributes": {
+      "tier": 2
+     }
+    }
+   ],
+   "due_date": "2026-10-08",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0039",
+  "domain": "electrician",
+  "received_at": "2026-09-20T12:14:00+05:30",
+  "message": "chimney fan do dheere chal raha hai, aur bedroom ka मोटर Havells wala. १८ तारीख tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "exhaust fan",
+     "quantity": 2,
+     "attributes": {
+      "issue": "slow"
+     }
+    },
+    {
+     "description": "water motor",
+     "quantity": 1,
+     "attributes": {
+      "room": "bedroom",
+      "brand": "Havells"
+     }
+    }
+   ],
+   "due_date": "2026-10-18",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0040",
+  "domain": "electrician",
+  "received_at": "2026-08-18T18:07:00+05:30",
+  "message": "ट्यूब लाइट 1500 watt ka chahiye, mahine ke end tak, 1500 rs tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "tube light",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 1500
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 1500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0041",
+  "domain": "tiffin",
+  "received_at": "2026-09-01T09:22:00+05:30",
+  "message": "parantha breakfast me aur do ya teen sabji lunch ke liye, tez rakhna",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "paratha",
+     "quantity": 1,
+     "attributes": {
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "sabzi",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "spicy",
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0042",
+  "domain": "tailor",
+  "received_at": "2026-08-15T19:53:00+05:30",
+  "message": "char kurta silk ke aur ek salwar waist tees aadha sleeve. 5 din me",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 4,
+     "attributes": {
+      "fabric": "silk"
+     }
+    },
+    {
+     "description": "salwar",
+     "quantity": 1,
+     "attributes": {
+      "waist": 30,
+      "sleeve": "half"
+     }
+    }
+   ],
+   "due_date": "2026-08-20",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0043",
+  "domain": "baker",
+  "received_at": "2026-09-20T16:45:00+05:30",
+  "message": "cookies nahi, ek pastry 1 tier, muffin eggless pineapple wala, aur ek bread eggless vanilla. agle hafte tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 1,
+     "attributes": {
+      "tier": 1
+     }
+    },
+    {
+     "description": "muffin",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": true,
+      "flavour": "pineapple"
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": true,
+      "flavour": "vanilla"
+     }
+    }
+   ],
+   "due_date": "2026-09-27",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0044",
+  "domain": "baker",
+  "received_at": "2026-08-16T09:14:00+05:30",
+  "message": "Naveen bol raha hu. 23 August tak kuch acha sa bhijwa dena, aap decide kar lo",
+  "expected": {
+   "customer": "Naveen",
+   "items": [],
+   "due_date": "2026-08-23",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0045",
+  "domain": "electrician",
+  "received_at": "2026-09-07T13:22:00+05:30",
+  "message": "ek wiring me 40 watt ka fuse ud gaya, do ya teen inverter Bajaj ke band hai",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 40,
+      "issue": "fuse blown"
+     }
+    },
+    {
+     "description": "inverter",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Bajaj",
+      "issue": "not working"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0046",
+  "domain": "baker",
+  "received_at": "2026-10-04T10:07:00+05:30",
+  "message": "Tarun ke liye nahi, Priya ke liye cake pineapple wala aur ek bday cake 1 kg strawberry. narsu tak, pichli baar jaisa",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "cake",
+     "quantity": 1,
+     "attributes": {
+      "flavour": "pineapple"
+     }
+    },
+    {
+     "description": "birthday cake",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 1,
+      "flavour": "strawberry"
+     }
+    }
+   ],
+   "due_date": "2026-10-07",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0047",
+  "domain": "baker",
+  "received_at": "2026-08-23T15:45:00+05:30",
+  "message": "Manoj ji ke liye ४ cookies, 3 tier, square shape, eggless. shaadi se pehle, last wale jaisa",
+  "expected": {
+   "customer": "Manoj",
+   "items": [
+    {
+     "description": "cookies",
+     "quantity": 4,
+     "attributes": {
+      "tier": 3,
+      "shape": "square",
+      "egg_free": true
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0048",
+  "domain": "tiffin",
+  "received_at": "2026-09-10T08:14:00+05:30",
+  "message": "Manoj ke liye pohe teen breakfast me, kam mirchi. 19 tarikh tak",
+  "expected": {
+   "customer": "Manoj",
+   "items": [
+    {
+     "description": "poha",
+     "quantity": 3,
+     "attributes": {
+      "spice_level": "mild",
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-09-19",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0049",
+  "domain": "tiffin",
+  "received_at": "2026-09-25T16:53:00+05:30",
+  "message": "Ramesh ke liye nahi, Vikram ke liye char idli 3 din lunch ke liye, ek paneer tez zyada portion jain nahi, aur do chawal lunch me. narsu tak",
+  "expected": {
+   "customer": "Vikram",
+   "items": [
+    {
+     "description": "idli",
+     "quantity": 4,
+     "attributes": {
+      "days": 3,
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "paneer sabzi",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "spicy",
+      "portion": "extra",
+      "jain": false
+     }
+    },
+    {
+     "description": "rice",
+     "quantity": 2,
+     "attributes": {
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": "2026-09-28",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0050",
+  "domain": "electrician",
+  "received_at": "2026-09-30T16:31:00+05:30",
+  "message": "do ya teen door bell me short ho gaya, 6 din me dekh lena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 2,
+     "attributes": {
+      "issue": "short circuit"
+     }
+    }
+   ],
+   "due_date": "2026-10-06",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0051",
+  "domain": "electrician",
+  "received_at": "2026-09-16T14:53:00+05:30",
+  "message": "Asha ke liye nahi, Vikram ke liye, do exaust fan Polycab terrace wale ka fuse ud gaya, geyser se awaaz aa rahi, aur ek fuse box terrace ka bhi awaaz kar raha hai. 2 din me, 450 tak",
+  "expected": {
+   "customer": "Vikram",
+   "items": [
+    {
+     "description": "exhaust fan",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Polycab",
+      "room": "terrace",
+      "issue": "fuse blown"
+     }
+    },
+    {
+     "description": "geyser",
+     "quantity": 1,
+     "attributes": {
+      "issue": "noise"
+     }
+    },
+    {
+     "description": "mcb",
+     "quantity": 1,
+     "attributes": {
+      "room": "terrace",
+      "issue": "noise"
+     }
+    }
+   ],
+   "due_date": "2026-09-18",
+   "amount": 450.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0052",
+  "domain": "tailor",
+  "received_at": "2026-10-04T19:22:00+05:30",
+  "message": "Asha ke liye koti waist chalis chest 40, aur ek शेरवानी loose chest 40. kal tak, 500 tak",
+  "expected": {
+   "customer": "Asha",
+   "items": [
+    {
+     "description": "waistcoat",
+     "quantity": 1,
+     "attributes": {
+      "waist": 40,
+      "chest": 40
+     }
+    },
+    {
+     "description": "sherwani",
+     "quantity": 1,
+     "attributes": {
+      "fit": "loose",
+      "chest": 40
+     }
+    }
+   ],
+   "due_date": "2026-10-05",
+   "amount": 500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0053",
+  "domain": "tiffin",
+  "received_at": "2026-09-12T19:45:00+05:30",
+  "message": "Kavita ji, ek chawal tez breakfast me jain nahi, teen ya char roti normal lunch ke liye jain nahi, aur ek इडली breakfast. agle hafte se shuru",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "rice",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "spicy",
+      "jain": false,
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "roti",
+     "quantity": 3,
+     "attributes": {
+      "jain": false,
+      "spice_level": "medium",
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "idli",
+     "quantity": 1,
+     "attributes": {
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-09-19",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0054",
+  "domain": "baker",
+  "received_at": "2026-09-27T11:53:00+05:30",
+  "message": "do bday cake vanilla, do browni normal ande wale, aur do biscuit 1 kg vanilla. is weekend tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 2,
+     "attributes": {
+      "flavour": "vanilla"
+     }
+    },
+    {
+     "description": "brownie",
+     "quantity": 2,
+     "attributes": {
+      "egg_free": false
+     }
+    },
+    {
+     "description": "cookies",
+     "quantity": 2,
+     "attributes": {
+      "weight_kg": 1,
+      "flavour": "vanilla"
+     }
+    }
+   ],
+   "due_date": "2026-10-03",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0055",
+  "domain": "tiffin",
+  "received_at": "2026-08-31T08:31:00+05:30",
+  "message": "Tarun ke liye ek dahi, jain nahi. mahine ke end tak",
+  "expected": {
+   "customer": "Tarun",
+   "items": [
+    {
+     "description": "curd",
+     "quantity": 1,
+     "attributes": {
+      "jain": false
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0056",
+  "domain": "tiffin",
+  "received_at": "2026-08-24T20:07:00+05:30",
+  "message": "Sarita didi ke liye paneer ki sabji normal masala breakfast me. jaldi chahiye, is weekend tak, 450",
+  "expected": {
+   "customer": "Sarita didi",
+   "items": [
+    {
+     "description": "paneer sabzi",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "medium",
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-08-29",
+   "amount": 450.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0057",
+  "domain": "tiffin",
+  "received_at": "2026-10-01T11:31:00+05:30",
+  "message": "५ thali, 8 roti, pura portion, 13 din ke liye, breakfast me. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 5,
+     "attributes": {
+      "roti_count": 8,
+      "portion": "full",
+      "days": 13,
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0058",
+  "domain": "baker",
+  "received_at": "2026-08-20T18:07:00+05:30",
+  "message": "Farida ke liye nahi, Kavita ke liye ३ cookie normal ande wale butterscotch, aur २ cheese cake 3 kg red velvet. 22 Aug tak",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "cookies",
+     "quantity": 3,
+     "attributes": {
+      "egg_free": false,
+      "flavour": "butterscotch"
+     }
+    },
+    {
+     "description": "cheesecake",
+     "quantity": 2,
+     "attributes": {
+      "weight_kg": 3,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0059",
+  "domain": "tailor",
+  "received_at": "2026-08-17T08:31:00+05:30",
+  "message": "Ramesh ji, dupatta paanch regular chest 40 aur pyjama teen chest 42. 10 din me, 650 tak",
+  "expected": {
+   "customer": "Ramesh",
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 5,
+     "attributes": {
+      "fit": "regular",
+      "chest": 40
+     }
+    },
+    {
+     "description": "pajama",
+     "quantity": 3,
+     "attributes": {
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": "2026-08-27",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0060",
+  "domain": "electrician",
+  "received_at": "2026-08-31T09:00:00+05:30",
+  "message": "char ghanti Usha ke 1000 watt chal nahi raha, do मोटर bedroom wale bhi. jaldi, tarso tak, 500 tak, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 4,
+     "attributes": {
+      "brand": "Usha",
+      "wattage": 1000,
+      "issue": "not working"
+     }
+    },
+    {
+     "description": "water motor",
+     "quantity": 2,
+     "attributes": {
+      "room": "bedroom"
+     }
+    }
+   ],
+   "due_date": "2026-09-03",
+   "amount": 500.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0061",
+  "domain": "tiffin",
+  "received_at": "2026-08-22T18:00:00+05:30",
+  "message": "Meena aunty ke liye do ya teen पराठा, aadha portion",
+  "expected": {
+   "customer": "Meena aunty",
+   "items": [
+    {
+     "description": "paratha",
+     "quantity": 2,
+     "attributes": {
+      "portion": "half"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0062",
+  "domain": "tiffin",
+  "received_at": "2026-09-09T12:14:00+05:30",
+  "message": "Rakesh ji do dahi zyada quantity, jain nahi, masala normal rakhna. somvar ko nahi, shukravar ko",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "curd",
+     "quantity": 2,
+     "attributes": {
+      "portion": "extra",
+      "jain": false,
+      "spice_level": "medium"
+     }
+    }
+   ],
+   "due_date": "2026-09-11",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0063",
+  "domain": "baker",
+  "received_at": "2026-09-07T16:14:00+05:30",
+  "message": "do doughnut 2 tier ke aur char bread chocolate. guruvar ko nahi, shukravar ko, 1500 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "donut",
+     "quantity": 2,
+     "attributes": {
+      "tier": 2
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 4,
+     "attributes": {
+      "flavour": "chocolate"
+     }
+    }
+   ],
+   "due_date": "2026-09-11",
+   "amount": 1500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0064",
+  "domain": "tiffin",
+  "received_at": "2026-09-04T12:53:00+05:30",
+  "message": "do ya teen thali chahiye 7 roti ke saath, asap bhejo bhaiya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 2,
+     "attributes": {
+      "roti_count": 7
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0065",
+  "domain": "tailor",
+  "received_at": "2026-09-14T17:14:00+05:30",
+  "message": "Ramesh ji, paanch pyjama chest bayalis, ek lehenga full sleeve chest 40, aur char suit velvet size S length 48 chest 42",
+  "expected": {
+   "customer": "Ramesh",
+   "items": [
+    {
+     "description": "pajama",
+     "quantity": 5,
+     "attributes": {
+      "chest": 42
+     }
+    },
+    {
+     "description": "lehenga",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "full",
+      "chest": 40
+     }
+    },
+    {
+     "description": "suit",
+     "quantity": 4,
+     "attributes": {
+      "fabric": "velvet",
+      "size": "S",
+      "length": 48,
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0066",
+  "domain": "tiffin",
+  "received_at": "2026-10-13T10:45:00+05:30",
+  "message": "२ दही aadha, 8 din ke liye, lunch me. aaj tak ho jayega?",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "curd",
+     "quantity": 2,
+     "attributes": {
+      "portion": "half",
+      "days": 8,
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": "2026-10-13",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0067",
+  "domain": "tiffin",
+  "received_at": "2026-08-23T18:00:00+05:30",
+  "message": "Kavita ji ke liye ek idli bhijwa dena",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "idli",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0068",
+  "domain": "tailor",
+  "received_at": "2026-09-13T14:07:00+05:30",
+  "message": "paanch ya chhe blouse silk ke aur ek शर्ट waist 32. २७ तारीख tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "blouse",
+     "quantity": 5,
+     "attributes": {
+      "fabric": "silk"
+     }
+    },
+    {
+     "description": "shirt",
+     "quantity": 1,
+     "attributes": {
+      "waist": 32
+     }
+    }
+   ],
+   "due_date": "2026-09-27",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0069",
+  "domain": "tailor",
+  "received_at": "2026-09-14T17:53:00+05:30",
+  "message": "bhaiya wo wala bhijwa dena na, aap samajh gaye hoge. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0070",
+  "domain": "tiffin",
+  "received_at": "2026-08-24T14:45:00+05:30",
+  "message": "Priya ke liye chawal, is weekend tak, 500 rs. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "rice",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-08-29",
+   "amount": 500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0071",
+  "domain": "electrician",
+  "received_at": "2026-10-07T10:31:00+05:30",
+  "message": "ek pankha ka motor Bajaj wala, fuse ud gaya. chhe invertor motor dheema chal raha. do motor fridge point ke Orient sau watt, chingari nikal rahi hai. 18 Oct tak, 650 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "ceiling fan",
+     "quantity": 1,
+     "attributes": {
+      "appliance": "motor",
+      "brand": "Bajaj",
+      "issue": "fuse blown"
+     }
+    },
+    {
+     "description": "inverter",
+     "quantity": 6,
+     "attributes": {
+      "appliance": "motor",
+      "issue": "slow"
+     }
+    },
+    {
+     "description": "water motor",
+     "quantity": 2,
+     "attributes": {
+      "appliance": "fridge point",
+      "brand": "Orient",
+      "wattage": 100,
+      "issue": "spark"
+     }
+    }
+   ],
+   "due_date": "2026-10-18",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0072",
+  "domain": "electrician",
+  "received_at": "2026-09-30T17:45:00+05:30",
+  "message": "socket nahi, २ ghanti balcony wali dheere chal raha hai",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 2,
+     "attributes": {
+      "room": "balcony",
+      "issue": "slow"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0073",
+  "domain": "baker",
+  "received_at": "2026-08-19T15:31:00+05:30",
+  "message": "cake nahi, Sunita ke liye ek browni round, aur bread 3 kg ka",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "brownie",
+     "quantity": 1,
+     "attributes": {
+      "shape": "round"
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 3
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0074",
+  "domain": "electrician",
+  "received_at": "2026-10-06T12:22:00+05:30",
+  "message": "Asha ji, do ya teen inverter 1000 watt ke, aur ek gizer Anchor ka fuse ud gaya",
+  "expected": {
+   "customer": "Asha",
+   "items": [
+    {
+     "description": "inverter",
+     "quantity": 2,
+     "attributes": {
+      "wattage": 1000
+     }
+    },
+    {
+     "description": "geyser",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Anchor",
+      "issue": "fuse blown"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0075",
+  "domain": "baker",
+  "received_at": "2026-08-19T17:07:00+05:30",
+  "message": "chhe ya saat cake butterscotch, ek bread 1 kg heart shape vanilla, aur do pastry strawberry. last time jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cake",
+     "quantity": 6,
+     "attributes": {
+      "flavour": "butterscotch"
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 1,
+      "shape": "heart",
+      "flavour": "vanilla"
+     }
+    },
+    {
+     "description": "pastry",
+     "quantity": 2,
+     "attributes": {
+      "flavour": "strawberry"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0076",
+  "domain": "tailor",
+  "received_at": "2026-09-30T12:31:00+05:30",
+  "message": "Neha ke liye teen pajama chest 34, shaadi se pehle",
+  "expected": {
+   "customer": "Neha",
+   "items": [
+    {
+     "description": "pajama",
+     "quantity": 3,
+     "attributes": {
+      "chest": 34
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0077",
+  "domain": "tailor",
+  "received_at": "2026-09-21T08:53:00+05:30",
+  "message": "suit २ beige slim chest 38 aur dupatta chhe aadha sleeve. agle hafte tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "suit",
+     "quantity": 2,
+     "attributes": {
+      "color": "beige",
+      "fit": "slim",
+      "chest": 38
+     }
+    },
+    {
+     "description": "dupatta",
+     "quantity": 6,
+     "attributes": {
+      "sleeve": "half"
+     }
+    }
+   ],
+   "due_date": "2026-09-28",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0078",
+  "domain": "tiffin",
+  "received_at": "2026-09-16T12:45:00+05:30",
+  "message": "poha nahi, do dahi normal masala aadha portion jain wala, aur do idli. 28 Sep tak, 300 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "curd",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "medium",
+      "portion": "half",
+      "jain": true
+     }
+    },
+    {
+     "description": "idli",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-28",
+   "amount": 300.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0079",
+  "domain": "tiffin",
+  "received_at": "2026-08-21T18:22:00+05:30",
+  "message": "Rukhsana ke liye nahi, Sunita ke liye ek chawal aur teen idli, 8 roti ke saath dono me, 5 din breakfast ke liye",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "rice",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 8
+     }
+    },
+    {
+     "description": "idli",
+     "quantity": 3,
+     "attributes": {
+      "roti_count": 8,
+      "days": 5,
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0080",
+  "domain": "tiffin",
+  "received_at": "2026-09-24T17:31:00+05:30",
+  "message": "Ramesh ji २ daal breakfast me aur do rajma 2 din ke liye. guruvar ko nahi, shukravar ko, pehle jaisa hi",
+  "expected": {
+   "customer": "Ramesh",
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 2,
+     "attributes": {
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "rajma",
+     "quantity": 2,
+     "attributes": {
+      "days": 2
+     }
+    }
+   ],
+   "due_date": "2026-09-25",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0081",
+  "domain": "electrician",
+  "received_at": "2026-10-10T09:22:00+05:30",
+  "message": "Tarun ke liye nahi, Asha ke liye ek MCB Anchor ka 2000 watt ka, fuse ud gaya. 8 tarikh tak",
+  "expected": {
+   "customer": "Asha",
+   "items": [
+    {
+     "description": "mcb",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Anchor",
+      "wattage": 2000,
+      "issue": "fuse blown"
+     }
+    }
+   ],
+   "due_date": "2026-11-08",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0082",
+  "domain": "tiffin",
+  "received_at": "2026-08-23T14:31:00+05:30",
+  "message": "Kavita ke liye nahi, Anil ji ke liye ४ daal, 2 roti, jain, lunch me. jitna jaldi ho sake, 500 tak",
+  "expected": {
+   "customer": "Anil ji",
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 4,
+     "attributes": {
+      "roti_count": 2,
+      "jain": true,
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0083",
+  "domain": "electrician",
+  "received_at": "2026-08-28T08:07:00+05:30",
+  "message": "socket nahi, do गीजर dheema chal raha hai aur do वायरिंग fridge point ki band hai. 7 Sep tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 2,
+     "attributes": {
+      "issue": "slow"
+     }
+    },
+    {
+     "description": "wiring",
+     "quantity": 2,
+     "attributes": {
+      "appliance": "fridge point",
+      "issue": "not working"
+     }
+    }
+   ],
+   "due_date": "2026-09-07",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0084",
+  "domain": "tiffin",
+  "received_at": "2026-09-13T17:31:00+05:30",
+  "message": "do chawal pura portion dinner me, aur खिचड़ी 8 roti 11 din tez dinner. kal tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "rice",
+     "quantity": 2,
+     "attributes": {
+      "portion": "full",
+      "meal": "dinner"
+     }
+    },
+    {
+     "description": "khichdi",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 8,
+      "days": 11,
+      "spice_level": "spicy",
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": "2026-09-14",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0085",
+  "domain": "tiffin",
+  "received_at": "2026-09-28T16:07:00+05:30",
+  "message": "Vikram ji, sabji aur khichdi chahiye. sabji dinner me 3 roti ke saath, khichdi breakfast me 9 din ke liye",
+  "expected": {
+   "customer": "Vikram",
+   "items": [
+    {
+     "description": "sabzi",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 3,
+      "meal": "dinner"
+     }
+    },
+    {
+     "description": "khichdi",
+     "quantity": 1,
+     "attributes": {
+      "days": 9,
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0086",
+  "domain": "tiffin",
+  "received_at": "2026-10-03T13:00:00+05:30",
+  "message": "Sarita didi ke liye sabji do, jain nahi, dinner me. agle hafte se",
+  "expected": {
+   "customer": "Sarita didi",
+   "items": [
+    {
+     "description": "sabzi",
+     "quantity": 2,
+     "attributes": {
+      "jain": false,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": "2026-10-10",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0087",
+  "domain": "tailor",
+  "received_at": "2026-09-19T15:14:00+05:30",
+  "message": "Tarun ke liye blouse nahi, ek lehenga chest 34 aur do सलवार bottle green chest 44. parso tak",
+  "expected": {
+   "customer": "Tarun",
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 1,
+     "attributes": {
+      "chest": 34
+     }
+    },
+    {
+     "description": "salwar",
+     "quantity": 2,
+     "attributes": {
+      "color": "bottle green",
+      "chest": 44
+     }
+    }
+   ],
+   "due_date": "2026-09-21",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0088",
+  "domain": "tailor",
+  "received_at": "2026-08-30T10:14:00+05:30",
+  "message": "Ramesh ji, kurta nahi chahiye, ek koti slim grey chest 38 aur do shalwar chest 40. parso tak",
+  "expected": {
+   "customer": "Ramesh",
+   "items": [
+    {
+     "description": "waistcoat",
+     "quantity": 1,
+     "attributes": {
+      "fit": "slim",
+      "color": "grey",
+      "chest": 38
+     }
+    },
+    {
+     "description": "salwar",
+     "quantity": 2,
+     "attributes": {
+      "chest": 40
+     }
+    }
+   ],
+   "due_date": "2026-09-01",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0089",
+  "domain": "baker",
+  "received_at": "2026-08-16T20:14:00+05:30",
+  "message": "३ cheese cake chocolate, urgent hai, 24 tarikh tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 3,
+     "attributes": {
+      "flavour": "chocolate"
+     }
+    }
+   ],
+   "due_date": "2026-08-24",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0090",
+  "domain": "tiffin",
+  "received_at": "2026-10-03T18:14:00+05:30",
+  "message": "do छोले kam mirchi lunch me aur idli zyada portion. somvar ko nahi, mangalvar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "chole",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "mild",
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "idli",
+     "quantity": 1,
+     "attributes": {
+      "portion": "extra"
+     }
+    }
+   ],
+   "due_date": "2026-10-06",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0091",
+  "domain": "electrician",
+  "received_at": "2026-09-10T14:53:00+05:30",
+  "message": "Gopal ji ke yahan १ वायरिंग bedroom me, awaaz aa rahi hai. urgent hai, parso tak dekh lena, pichli baar jaisa",
+  "expected": {
+   "customer": "Gopal ji",
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "room": "bedroom",
+      "issue": "noise"
+     }
+    }
+   ],
+   "due_date": "2026-09-12",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0092",
+  "domain": "baker",
+  "received_at": "2026-09-22T15:31:00+05:30",
+  "message": "browni chahiye ek, 1 tier ka bas",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "brownie",
+     "quantity": 1,
+     "attributes": {
+      "tier": 1
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0093",
+  "domain": "electrician",
+  "received_at": "2026-09-06T11:22:00+05:30",
+  "message": "tube light nahi, teen pankha chahiye, aaj tak, 650 me",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "ceiling fan",
+     "quantity": 3,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-06",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0094",
+  "domain": "tiffin",
+  "received_at": "2026-09-22T08:14:00+05:30",
+  "message": "roti nahi, teen thali 10 din ke liye breakfast me. is weekend se",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 3,
+     "attributes": {
+      "days": 10,
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-09-26",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0095",
+  "domain": "electrician",
+  "received_at": "2026-08-17T18:22:00+05:30",
+  "message": "ek wiring karwani hai bathroom me geyser ke liye. 23 Aug tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "appliance": "geyser",
+      "room": "bathroom"
+     }
+    }
+   ],
+   "due_date": "2026-08-23",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0096",
+  "domain": "tiffin",
+  "received_at": "2026-10-05T20:53:00+05:30",
+  "message": "bhaiya wahi roz wala bhijwa dena, main phone karta hu baad me",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0097",
+  "domain": "tiffin",
+  "received_at": "2026-08-31T19:31:00+05:30",
+  "message": "poha nahi, थाली ek, roti 5 din breakfast me, aur paanch parantha tez 5 roti lunch ke liye. १ तारीख tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 1,
+     "attributes": {}
+    },
+    {
+     "description": "roti",
+     "quantity": 1,
+     "attributes": {
+      "days": 5,
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "paratha",
+     "quantity": 5,
+     "attributes": {
+      "spice_level": "spicy",
+      "roti_count": 5,
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": "2026-09-01",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0098",
+  "domain": "electrician",
+  "received_at": "2026-08-31T17:00:00+05:30",
+  "message": "ek switchboard aur teen motor light wale dekhne hain. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "switch board",
+     "quantity": 1,
+     "attributes": {}
+    },
+    {
+     "description": "water motor",
+     "quantity": 3,
+     "attributes": {
+      "appliance": "light"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0099",
+  "domain": "tiffin",
+  "received_at": "2026-09-18T09:53:00+05:30",
+  "message": "Farida ji do ya teen राजमा 9 din breakfast me. jab ho jaye tab bata dena",
+  "expected": {
+   "customer": "Farida",
+   "items": [
+    {
+     "description": "rajma",
+     "quantity": 2,
+     "attributes": {
+      "days": 9,
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0100",
+  "domain": "tailor",
+  "received_at": "2026-09-30T10:53:00+05:30",
+  "message": "teen sherwani maroon XXL length 40, aur blouse chest 38. somvar ko nahi, budhvar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 3,
+     "attributes": {
+      "color": "maroon",
+      "size": "XXL",
+      "length": 40
+     }
+    },
+    {
+     "description": "blouse",
+     "quantity": 1,
+     "attributes": {
+      "chest": 38
+     }
+    }
+   ],
+   "due_date": "2026-10-07",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0101",
+  "domain": "tailor",
+  "received_at": "2026-10-03T18:14:00+05:30",
+  "message": "ek sherwani banwana hai, agle hafte tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-10-10",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0102",
+  "domain": "electrician",
+  "received_at": "2026-09-25T13:22:00+05:30",
+  "message": "Manoj bol raha hu, wahi wala kaam karwana hai, aap samajh gaye hoge. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Manoj",
+   "items": [],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0103",
+  "domain": "tailor",
+  "received_at": "2026-10-11T16:31:00+05:30",
+  "message": "pajama slim maroon chest 46, aur २ lehenga linen length 42 chest 42. agle mahine, 1500 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pajama",
+     "quantity": 1,
+     "attributes": {
+      "fit": "slim",
+      "color": "maroon",
+      "chest": 46
+     }
+    },
+    {
+     "description": "lehenga",
+     "quantity": 2,
+     "attributes": {
+      "fabric": "linen",
+      "length": 42,
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 1500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0104",
+  "domain": "tiffin",
+  "received_at": "2026-10-14T12:00:00+05:30",
+  "message": "Naveen ke liye छोले, lunch me. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "chole",
+     "quantity": 1,
+     "attributes": {
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0105",
+  "domain": "tiffin",
+  "received_at": "2026-10-09T09:45:00+05:30",
+  "message": "Priya ji, daal do 8 din ke liye, thali ek 6 roti 8 din lunch me, aur parantha do kam mirchi dinner ke liye",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 2,
+     "attributes": {
+      "days": 8
+     }
+    },
+    {
+     "description": "thali",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 6,
+      "days": 8,
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "paratha",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "mild",
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0106",
+  "domain": "electrician",
+  "received_at": "2026-08-17T10:14:00+05:30",
+  "message": "teen invertor aur ek board lagwana hai. invertor Polycab ke bathroom me, board hall me. is weekend tak, 1500 tak, last wale jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "inverter",
+     "quantity": 3,
+     "attributes": {
+      "brand": "Polycab",
+      "room": "bathroom"
+     }
+    },
+    {
+     "description": "switch board",
+     "quantity": 1,
+     "attributes": {
+      "room": "hall"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": 1500.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0107",
+  "domain": "tiffin",
+  "received_at": "2026-09-11T12:14:00+05:30",
+  "message": "Tarun ke liye nahi, Naveen ke liye paneer ki sabji pura portion, jain nahi, normal masala, dinner me",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "paneer sabzi",
+     "quantity": 1,
+     "attributes": {
+      "portion": "full",
+      "jain": false,
+      "spice_level": "medium",
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0108",
+  "domain": "tailor",
+  "received_at": "2026-08-19T14:14:00+05:30",
+  "message": "pant nahi, २ suit loose fitting, 650 tak. asap chahiye",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "suit",
+     "quantity": 2,
+     "attributes": {
+      "fit": "loose"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0109",
+  "domain": "tailor",
+  "received_at": "2026-09-21T16:22:00+05:30",
+  "message": "३ kameez mustard color. season shuru hone se pehle, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kameez",
+     "quantity": 3,
+     "attributes": {
+      "color": "mustard"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0110",
+  "domain": "tiffin",
+  "received_at": "2026-09-26T13:00:00+05:30",
+  "message": "Vikram ke liye nahi, Sarita didi ke liye chawal breakfast me aur ek khichdi aadha tez lunch ke liye. aaj tak, last time jaisa",
+  "expected": {
+   "customer": "Sarita didi",
+   "items": [
+    {
+     "description": "rice",
+     "quantity": 1,
+     "attributes": {
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "khichdi",
+     "quantity": 1,
+     "attributes": {
+      "portion": "half",
+      "spice_level": "spicy",
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": "2026-09-26",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0111",
+  "domain": "baker",
+  "received_at": "2026-08-16T17:45:00+05:30",
+  "message": "Anil ji ke liye muffin char normal ande wale chocolate. jitna jaldi ho sake",
+  "expected": {
+   "customer": "Anil ji",
+   "items": [
+    {
+     "description": "muffin",
+     "quantity": 4,
+     "attributes": {
+      "egg_free": false,
+      "flavour": "chocolate"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0112",
+  "domain": "baker",
+  "received_at": "2026-08-23T14:14:00+05:30",
+  "message": "muffin nahi, do cup cake chahiye, next week kabhi bhi de dena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cupcake",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0113",
+  "domain": "electrician",
+  "received_at": "2026-08-31T16:14:00+05:30",
+  "message": "Tarun ke liye switchboard nahi, १ सॉकेट 40 watt ka, motor wala. last wale jaisa",
+  "expected": {
+   "customer": "Tarun",
+   "items": [
+    {
+     "description": "socket",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 40,
+      "appliance": "motor"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0114",
+  "domain": "tailor",
+  "received_at": "2026-10-10T16:31:00+05:30",
+  "message": "ek शेरवानी length 46 aadha sleeve, do pajama XL length 38 beige chest 36. exam ke baad",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 1,
+     "attributes": {
+      "length": 46,
+      "sleeve": "half"
+     }
+    },
+    {
+     "description": "pajama",
+     "quantity": 2,
+     "attributes": {
+      "size": "XL",
+      "length": 38,
+      "color": "beige",
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0115",
+  "domain": "tailor",
+  "received_at": "2026-09-01T18:31:00+05:30",
+  "message": "Priya ji char ब्लाउज chest chhiyalis. jitna jaldi ho sake",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "blouse",
+     "quantity": 4,
+     "attributes": {
+      "chest": 46
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0116",
+  "domain": "baker",
+  "received_at": "2026-10-13T17:45:00+05:30",
+  "message": "Deepak bhai, paanch cupcake red velvet, ek cookie normal ande wala chocolate, aur pastry bhi normal ande wali. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Deepak bhai",
+   "items": [
+    {
+     "description": "cupcake",
+     "quantity": 5,
+     "attributes": {
+      "flavour": "red velvet"
+     }
+    },
+    {
+     "description": "cookies",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": false,
+      "flavour": "chocolate"
+     }
+    },
+    {
+     "description": "pastry",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": false
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0117",
+  "domain": "tailor",
+  "received_at": "2026-10-04T08:31:00+05:30",
+  "message": "Deepak bhai ke liye do salwar length chalis aur do pant",
+  "expected": {
+   "customer": "Deepak bhai",
+   "items": [
+    {
+     "description": "salwar",
+     "quantity": 2,
+     "attributes": {
+      "length": 40
+     }
+    },
+    {
+     "description": "pant",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0118",
+  "domain": "electrician",
+  "received_at": "2026-09-20T20:22:00+05:30",
+  "message": "teen geyser 80 watt ke",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 3,
+     "attributes": {
+      "wattage": 80
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0119",
+  "domain": "tiffin",
+  "received_at": "2026-08-28T12:14:00+05:30",
+  "message": "थाली do 11 din pura portion breakfast me aur idli ek. agle hafte se, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 2,
+     "attributes": {
+      "days": 11,
+      "portion": "full",
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "idli",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-04",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0120",
+  "domain": "tailor",
+  "received_at": "2026-08-19T18:00:00+05:30",
+  "message": "pyjama ३ size L, 3/4 sleeve",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pajama",
+     "quantity": 3,
+     "attributes": {
+      "size": "L",
+      "sleeve": "three-quarter"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0121",
+  "domain": "electrician",
+  "received_at": "2026-08-15T09:53:00+05:30",
+  "message": "Iqbal bhai ke yahan १ मोटर saath watt ka, jhatka lag raha hai. agle hafte tak",
+  "expected": {
+   "customer": "Iqbal bhai",
+   "items": [
+    {
+     "description": "water motor",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 60,
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0122",
+  "domain": "electrician",
+  "received_at": "2026-08-28T18:45:00+05:30",
+  "message": "२ AC point hall wale 40 watt chal nahi raha, aur motor dheema hai. mangalvar ko nahi, budhvar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "ac point",
+     "quantity": 2,
+     "attributes": {
+      "wattage": 40,
+      "room": "hall",
+      "issue": "not working"
+     }
+    },
+    {
+     "description": "water motor",
+     "quantity": 1,
+     "attributes": {
+      "issue": "slow"
+     }
+    }
+   ],
+   "due_date": "2026-09-02",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0123",
+  "domain": "baker",
+  "received_at": "2026-09-07T10:53:00+05:30",
+  "message": "Deepak bhai ke liye nahi, Kavita ke liye ६ bday cake chocolate aur ek ब्रेड 1.5 kg butterscotch. narsu tak, last time jaisa",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 6,
+     "attributes": {
+      "flavour": "chocolate"
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 1.5,
+      "flavour": "butterscotch"
+     }
+    }
+   ],
+   "due_date": "2026-09-10",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0124",
+  "domain": "tiffin",
+  "received_at": "2026-10-08T08:14:00+05:30",
+  "message": "Kavita ji char idli 7 roti lunch me, do pohe tez jain nahi, aur do khichdi zyada 5 din. jab time mile",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "idli",
+     "quantity": 4,
+     "attributes": {
+      "roti_count": 7,
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "poha",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "spicy",
+      "jain": false
+     }
+    },
+    {
+     "description": "khichdi",
+     "quantity": 2,
+     "attributes": {
+      "portion": "extra",
+      "days": 5
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0125",
+  "domain": "baker",
+  "received_at": "2026-10-13T10:22:00+05:30",
+  "message": "डोनट chahiye 3 tier strawberry. urgent hai, agle hafte tak, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "donut",
+     "quantity": 1,
+     "attributes": {
+      "tier": 3,
+      "flavour": "strawberry"
+     }
+    }
+   ],
+   "due_date": "2026-10-20",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0126",
+  "domain": "tiffin",
+  "received_at": "2026-10-08T14:53:00+05:30",
+  "message": "aaj tak bhijwa dena bhaiya, 650 tak ka, aap hi decide kar lo",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": "2026-10-08",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0127",
+  "domain": "tailor",
+  "received_at": "2026-08-23T10:22:00+05:30",
+  "message": "bhaiya wo silwana tha jo maine bola tha, aap dekh lo",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0128",
+  "domain": "tailor",
+  "received_at": "2026-09-29T20:00:00+05:30",
+  "message": "Tarun ke liye salwar nahi, लहंगा regular fit. 21 tarikh tak",
+  "expected": {
+   "customer": "Tarun",
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 1,
+     "attributes": {
+      "fit": "regular"
+     }
+    }
+   ],
+   "due_date": "2026-10-21",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0129",
+  "domain": "electrician",
+  "received_at": "2026-09-22T18:00:00+05:30",
+  "message": "paanch invertor bedroom me current aa raha hai, aur ek geyser bhi. aaj tak, 200 tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "inverter",
+     "quantity": 5,
+     "attributes": {
+      "room": "bedroom",
+      "issue": "leaking current"
+     }
+    },
+    {
+     "description": "geyser",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-22",
+   "amount": 200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0130",
+  "domain": "tailor",
+  "received_at": "2026-09-22T14:45:00+05:30",
+  "message": "do lehenga chest 44. jaldi, tarso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 2,
+     "attributes": {
+      "chest": 44
+     }
+    }
+   ],
+   "due_date": "2026-09-25",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0131",
+  "domain": "tiffin",
+  "received_at": "2026-09-10T17:22:00+05:30",
+  "message": "rajma nahi, daal 7 roti ke saath dinner me. jaldi bhejna, last wale jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 7,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0132",
+  "domain": "electrician",
+  "received_at": "2026-09-16T15:00:00+05:30",
+  "message": "teen ya char ghanti aur do AC point se awaaz aa rahi hai. kal tak, 450 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 3,
+     "attributes": {}
+    },
+    {
+     "description": "ac point",
+     "quantity": 2,
+     "attributes": {
+      "issue": "noise"
+     }
+    }
+   ],
+   "due_date": "2026-09-17",
+   "amount": 450.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0133",
+  "domain": "electrician",
+  "received_at": "2026-10-10T19:00:00+05:30",
+  "message": "ek wiring Crompton ki awaaz kar rahi hai, do ghanti balcony wali Usha ki dheema chal rahi. jaldi, 7 din me, 650 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Crompton",
+      "issue": "noise"
+     }
+    },
+    {
+     "description": "doorbell",
+     "quantity": 2,
+     "attributes": {
+      "room": "balcony",
+      "brand": "Usha",
+      "issue": "slow"
+     }
+    }
+   ],
+   "due_date": "2026-10-17",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0134",
+  "domain": "tailor",
+  "received_at": "2026-08-27T19:07:00+05:30",
+  "message": "is weekend tak bhijwa dena, aap samajh gaye na kya chahiye",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": "2026-08-29",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0135",
+  "domain": "baker",
+  "received_at": "2026-08-29T14:14:00+05:30",
+  "message": "५ muffin aur ek cake 1 tier mango. jaldi chahiye, agle hafte tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "muffin",
+     "quantity": 5,
+     "attributes": {}
+    },
+    {
+     "description": "cake",
+     "quantity": 1,
+     "attributes": {
+      "tier": 1,
+      "flavour": "mango"
+     }
+    }
+   ],
+   "due_date": "2026-09-05",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0136",
+  "domain": "tailor",
+  "received_at": "2026-09-14T13:31:00+05:30",
+  "message": "lehenga 3/4 sleeve silk ka. 18 Sep tak, pichli baar jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "three-quarter",
+      "fabric": "silk"
+     }
+    }
+   ],
+   "due_date": "2026-09-18",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0137",
+  "domain": "tiffin",
+  "received_at": "2026-08-21T13:22:00+05:30",
+  "message": "narsu tak wahi bhijwa dena, 200 ka, last time jaisa",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": "2026-08-24",
+   "amount": 200.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0138",
+  "domain": "baker",
+  "received_at": "2026-10-01T19:22:00+05:30",
+  "message": "Deepak bhai, पेस्ट्री teen 3 kg 3 tier chocolate, aur bday cake paanch. 200 tak",
+  "expected": {
+   "customer": "Deepak bhai",
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 3,
+     "attributes": {
+      "weight_kg": 3,
+      "tier": 3,
+      "flavour": "chocolate"
+     }
+    },
+    {
+     "description": "birthday cake",
+     "quantity": 5,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": 200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0139",
+  "domain": "tiffin",
+  "received_at": "2026-08-19T15:00:00+05:30",
+  "message": "२ दाल 8 roti aadha portion breakfast me. thoda jaldi, agle hafte se",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 2,
+     "attributes": {
+      "roti_count": 8,
+      "portion": "half",
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-08-26",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0140",
+  "domain": "electrician",
+  "received_at": "2026-09-27T19:53:00+05:30",
+  "message": "wiring 80 watt me chingari, aur paanch socket 1000 watt ac wale bhi spark kar raha hai. budhvar ko nahi, ravivar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 80,
+      "issue": "spark"
+     }
+    },
+    {
+     "description": "socket",
+     "quantity": 5,
+     "attributes": {
+      "wattage": 1000,
+      "appliance": "ac",
+      "issue": "spark"
+     }
+    }
+   ],
+   "due_date": "2026-10-04",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0141",
+  "domain": "baker",
+  "received_at": "2026-08-24T20:14:00+05:30",
+  "message": "brownie nahi, Meena aunty ke liye cheese cake. agle hafte tak",
+  "expected": {
+   "customer": "Meena aunty",
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-08-31",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0142",
+  "domain": "tiffin",
+  "received_at": "2026-09-24T14:45:00+05:30",
+  "message": "Gopal ji pohe do lunch me. jab ho jaye bata dena",
+  "expected": {
+   "customer": "Gopal ji",
+   "items": [
+    {
+     "description": "poha",
+     "quantity": 2,
+     "attributes": {
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0143",
+  "domain": "tiffin",
+  "received_at": "2026-08-25T18:53:00+05:30",
+  "message": "Gopal ji ke liye nahi, Rakesh ke liye do parantha 13 din ke liye, jain. 1200 tak",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "paratha",
+     "quantity": 2,
+     "attributes": {
+      "days": 13,
+      "jain": true
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 1200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0144",
+  "domain": "tailor",
+  "received_at": "2026-09-08T12:53:00+05:30",
+  "message": "dupatta waist 28. diwali se pehle",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 1,
+     "attributes": {
+      "waist": 28
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0145",
+  "domain": "baker",
+  "received_at": "2026-09-14T10:31:00+05:30",
+  "message": "Sunita ke liye nahi, Anil ji ke liye ek pastry 3 tier butterscotch. २२ तारीख tak",
+  "expected": {
+   "customer": "Anil ji",
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 1,
+     "attributes": {
+      "tier": 3,
+      "flavour": "butterscotch"
+     }
+    }
+   ],
+   "due_date": "2026-09-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0146",
+  "domain": "electrician",
+  "received_at": "2026-10-05T16:45:00+05:30",
+  "message": "socket nahi, do ghanti Orient ki, fan wale point pe lagani hai",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Orient",
+      "appliance": "fan"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0147",
+  "domain": "tiffin",
+  "received_at": "2026-10-06T19:53:00+05:30",
+  "message": "Kavita ji, teen daal zyada breakfast me, ek rajma 6 din 2 roti jain nahi breakfast, aur chawal 7 roti dinner me. 11 Oct tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 3,
+     "attributes": {
+      "portion": "extra",
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "rajma",
+     "quantity": 1,
+     "attributes": {
+      "days": 6,
+      "roti_count": 2,
+      "jain": false,
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "rice",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 7,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": "2026-10-11",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0148",
+  "domain": "tailor",
+  "received_at": "2026-08-21T15:14:00+05:30",
+  "message": "Manoj ji, kurta grey size S chest 46 aur teen lehenga chest 36. urgent, 25 Aug tak, 450 tak",
+  "expected": {
+   "customer": "Manoj",
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 1,
+     "attributes": {
+      "color": "grey",
+      "size": "S",
+      "chest": 46
+     }
+    },
+    {
+     "description": "lehenga",
+     "quantity": 3,
+     "attributes": {
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": "2026-08-25",
+   "amount": 450.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0149",
+  "domain": "electrician",
+  "received_at": "2026-08-21T14:31:00+05:30",
+  "message": "Vikram ke liye nahi, Kavita ke liye do fuse box Crompton ke, motor wale, awaaz kar rahe hain",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "mcb",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Crompton",
+      "appliance": "motor",
+      "issue": "noise"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0150",
+  "domain": "baker",
+  "received_at": "2026-10-11T17:45:00+05:30",
+  "message": "teen pastry normal ande wali, 1 kg, heart shape, red velvet. festival se pehle chahiye. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 3,
+     "attributes": {
+      "egg_free": false,
+      "weight_kg": 1,
+      "shape": "heart",
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0151",
+  "domain": "baker",
+  "received_at": "2026-09-28T13:31:00+05:30",
+  "message": "brownie nahi, do muffin 3 kg chocolate. kal tak, 650 me",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "muffin",
+     "quantity": 2,
+     "attributes": {
+      "weight_kg": 3,
+      "flavour": "chocolate"
+     }
+    }
+   ],
+   "due_date": "2026-09-29",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0152",
+  "domain": "electrician",
+  "received_at": "2026-09-26T08:14:00+05:30",
+  "message": "Iqbal bhai, १ pankha kitchen me aur teen tubelight 1000 watt spark kar raha hai. agle mahine",
+  "expected": {
+   "customer": "Iqbal bhai",
+   "items": [
+    {
+     "description": "ceiling fan",
+     "quantity": 1,
+     "attributes": {
+      "room": "kitchen"
+     }
+    },
+    {
+     "description": "tube light",
+     "quantity": 3,
+     "attributes": {
+      "wattage": 1000,
+      "issue": "spark"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0153",
+  "domain": "tailor",
+  "received_at": "2026-09-11T12:22:00+05:30",
+  "message": "Manoj ji do suit length 46 linen chest 46. urgent hai, 4 din me",
+  "expected": {
+   "customer": "Manoj",
+   "items": [
+    {
+     "description": "suit",
+     "quantity": 2,
+     "attributes": {
+      "length": 46,
+      "fabric": "linen",
+      "chest": 46
+     }
+    }
+   ],
+   "due_date": "2026-09-15",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0154",
+  "domain": "baker",
+  "received_at": "2026-10-09T14:22:00+05:30",
+  "message": "Rakesh ke liye nahi, Priya ke liye cup cake 2 tier red velvet. aaj tak",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "cupcake",
+     "quantity": 1,
+     "attributes": {
+      "tier": 2,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": "2026-10-09",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0155",
+  "domain": "tailor",
+  "received_at": "2026-08-24T15:53:00+05:30",
+  "message": "ब्लाउज slim fit chest chavalis",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "blouse",
+     "quantity": 1,
+     "attributes": {
+      "fit": "slim",
+      "chest": 44
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0156",
+  "domain": "electrician",
+  "received_at": "2026-08-29T10:00:00+05:30",
+  "message": "Neha ke yahan do ya teen gizer 60 watt awaaz kar rahe, aur inverter fridge point ka Polycab band hai. pehle jaisa hi",
+  "expected": {
+   "customer": "Neha",
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 2,
+     "attributes": {
+      "wattage": 60,
+      "issue": "noise"
+     }
+    },
+    {
+     "description": "inverter",
+     "quantity": 1,
+     "attributes": {
+      "appliance": "fridge point",
+      "brand": "Polycab",
+      "issue": "not working"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0157",
+  "domain": "tailor",
+  "received_at": "2026-09-15T16:45:00+05:30",
+  "message": "Deepak bhai ६ kurta chest 42. jaldi chahiye, 22 Sep tak",
+  "expected": {
+   "customer": "Deepak bhai",
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 6,
+     "attributes": {
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": "2026-09-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0158",
+  "domain": "tiffin",
+  "received_at": "2026-08-22T10:22:00+05:30",
+  "message": "dal nahi, ek dahi kam mirchi dinner me, teen khichdi 14 din jain dinner. parso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "curd",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "mild",
+      "meal": "dinner"
+     }
+    },
+    {
+     "description": "khichdi",
+     "quantity": 3,
+     "attributes": {
+      "days": 14,
+      "jain": true,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": "2026-08-24",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0159",
+  "domain": "electrician",
+  "received_at": "2026-10-05T16:07:00+05:30",
+  "message": "Anil ji ke liye nahi, Kavita ke liye, do motor ka fuse ud gaya, teen wiring ac wali Polycab me current aa raha, aur do घंटी me bhi jhatka lag raha hai",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "water motor",
+     "quantity": 2,
+     "attributes": {
+      "issue": "fuse blown"
+     }
+    },
+    {
+     "description": "wiring",
+     "quantity": 3,
+     "attributes": {
+      "appliance": "ac",
+      "brand": "Polycab",
+      "issue": "leaking current"
+     }
+    },
+    {
+     "description": "doorbell",
+     "quantity": 2,
+     "attributes": {
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0160",
+  "domain": "baker",
+  "received_at": "2026-08-22T16:45:00+05:30",
+  "message": "do browni 2 tier ke. shaadi se pehle",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "brownie",
+     "quantity": 2,
+     "attributes": {
+      "tier": 2
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0161",
+  "domain": "tiffin",
+  "received_at": "2026-08-24T15:31:00+05:30",
+  "message": "roti nahi, char parantha bhijwa dena",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "paratha",
+     "quantity": 4,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0162",
+  "domain": "baker",
+  "received_at": "2026-09-12T08:31:00+05:30",
+  "message": "teen cupcake eggless 1 kg red velvet, 250 tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cupcake",
+     "quantity": 3,
+     "attributes": {
+      "egg_free": true,
+      "weight_kg": 1,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 250.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0163",
+  "domain": "tailor",
+  "received_at": "2026-09-29T08:53:00+05:30",
+  "message": "Manoj ji, ek लहंगा aadha sleeve loose chest chhiyalis aur do kameez. parso tak",
+  "expected": {
+   "customer": "Manoj",
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "half",
+      "fit": "loose",
+      "chest": 46
+     }
+    },
+    {
+     "description": "kameez",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-10-01",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0164",
+  "domain": "tailor",
+  "received_at": "2026-09-09T09:14:00+05:30",
+  "message": "do lehnga chest 40. guruvar ko nahi, shukravar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 2,
+     "attributes": {
+      "chest": 40
+     }
+    }
+   ],
+   "due_date": "2026-09-11",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0165",
+  "domain": "tiffin",
+  "received_at": "2026-08-20T11:45:00+05:30",
+  "message": "Sunita ke liye roti nahi, sirf इडली, is weekend tak, last time jaisa",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "idli",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0166",
+  "domain": "tailor",
+  "received_at": "2026-08-16T17:22:00+05:30",
+  "message": "Shalini ke liye kameez ek pura sleeve regular fit aur kurta char size S. 3 din me",
+  "expected": {
+   "customer": "Shalini",
+   "items": [
+    {
+     "description": "kameez",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "full",
+      "fit": "regular"
+     }
+    },
+    {
+     "description": "kurta",
+     "quantity": 4,
+     "attributes": {
+      "size": "S"
+     }
+    }
+   ],
+   "due_date": "2026-08-19",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0167",
+  "domain": "tiffin",
+  "received_at": "2026-09-02T11:53:00+05:30",
+  "message": "Kavita ji ek chawal aur do idli. chawal jain 7 roti lunch me. 17 tarikh tak, 800 tak, pichli baar jaisa",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "rice",
+     "quantity": 1,
+     "attributes": {
+      "jain": true,
+      "roti_count": 7,
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "idli",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-17",
+   "amount": 800.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0168",
+  "domain": "baker",
+  "received_at": "2026-09-12T11:14:00+05:30",
+  "message": "paanch bread, ek cupcake aur ek doughnut. bread eggless, cupcake 1 kg, doughnut square 0.5 kg red velvet. agle hafte tak, last wale jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "bread loaf",
+     "quantity": 5,
+     "attributes": {
+      "egg_free": true
+     }
+    },
+    {
+     "description": "cupcake",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 1
+     }
+    },
+    {
+     "description": "donut",
+     "quantity": 1,
+     "attributes": {
+      "shape": "square",
+      "weight_kg": 0.5,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": "2026-09-19",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0169",
+  "domain": "baker",
+  "received_at": "2026-10-06T12:31:00+05:30",
+  "message": "डोनट 3 kg pineapple. mahine ke end tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "donut",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 3,
+      "flavour": "pineapple"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0170",
+  "domain": "tailor",
+  "received_at": "2026-08-23T16:45:00+05:30",
+  "message": "pajama nahi, kurta pura sleeve. aaj tak, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "full"
+     }
+    }
+   ],
+   "due_date": "2026-08-23",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0171",
+  "domain": "tailor",
+  "received_at": "2026-09-27T14:53:00+05:30",
+  "message": "Naveen ke liye do ya teen salwar pura sleeve chest 42. 4 din me, 200 tak",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "salwar",
+     "quantity": 2,
+     "attributes": {
+      "sleeve": "full",
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": "2026-10-01",
+   "amount": 200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0172",
+  "domain": "baker",
+  "received_at": "2026-08-20T11:07:00+05:30",
+  "message": "पेस्ट्री 3 tier eggless, teen bday cake 1 tier 1.5 kg red velvet. somvar ko nahi, mangalvar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 1,
+     "attributes": {
+      "tier": 3,
+      "egg_free": true
+     }
+    },
+    {
+     "description": "birthday cake",
+     "quantity": 3,
+     "attributes": {
+      "tier": 1,
+      "weight_kg": 1.5,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": "2026-08-25",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0173",
+  "domain": "tailor",
+  "received_at": "2026-08-17T13:22:00+05:30",
+  "message": "kurta nahi, kameez 3/4 sleeve. 6 tarikh tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kameez",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "three-quarter"
+     }
+    }
+   ],
+   "due_date": "2026-09-06",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0174",
+  "domain": "baker",
+  "received_at": "2026-08-22T12:45:00+05:30",
+  "message": "cookies nahi, ek muffin 0.5 kg square 3 tier chocolate, char doughnut 2 tier chocolate. narsu tak, last time jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "muffin",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 0.5,
+      "shape": "square",
+      "tier": 3,
+      "flavour": "chocolate"
+     }
+    },
+    {
+     "description": "donut",
+     "quantity": 4,
+     "attributes": {
+      "tier": 2,
+      "flavour": "chocolate"
+     }
+    }
+   ],
+   "due_date": "2026-08-25",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0175",
+  "domain": "baker",
+  "received_at": "2026-09-06T09:14:00+05:30",
+  "message": "Vikram ji, bread normal ande wala mango, aur doughnut do normal ande wale 3 tier mango. agle hafte tak",
+  "expected": {
+   "customer": "Vikram",
+   "items": [
+    {
+     "description": "bread loaf",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": false,
+      "flavour": "mango"
+     }
+    },
+    {
+     "description": "donut",
+     "quantity": 2,
+     "attributes": {
+      "egg_free": false,
+      "tier": 3,
+      "flavour": "mango"
+     }
+    }
+   ],
+   "due_date": "2026-09-13",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0176",
+  "domain": "baker",
+  "received_at": "2026-09-25T20:53:00+05:30",
+  "message": "Farida ke liye nahi, Naveen ke liye teen doughnut eggless round vanilla",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "donut",
+     "quantity": 3,
+     "attributes": {
+      "egg_free": true,
+      "shape": "round",
+      "flavour": "vanilla"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0177",
+  "domain": "electrician",
+  "received_at": "2026-09-09T12:07:00+05:30",
+  "message": "४ AC point Usha ke fridge point wale 80 watt dheema chal raha, १ switchboard light ka 80 watt. jaldi chahiye, 15 Sep tak, last wale jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "ac point",
+     "quantity": 4,
+     "attributes": {
+      "brand": "Usha",
+      "appliance": "fridge point",
+      "wattage": 80,
+      "issue": "slow"
+     }
+    },
+    {
+     "description": "switch board",
+     "quantity": 1,
+     "attributes": {
+      "appliance": "light",
+      "wattage": 80
+     }
+    }
+   ],
+   "due_date": "2026-09-15",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0178",
+  "domain": "tailor",
+  "received_at": "2026-09-23T12:14:00+05:30",
+  "message": "Tarun ke liye pant chest 46. guruvar ko nahi, shukravar ko",
+  "expected": {
+   "customer": "Tarun",
+   "items": [
+    {
+     "description": "pant",
+     "quantity": 1,
+     "attributes": {
+      "chest": 46
+     }
+    }
+   ],
+   "due_date": "2026-09-25",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0179",
+  "domain": "tailor",
+  "received_at": "2026-08-22T14:00:00+05:30",
+  "message": "Deepak bhai ke liye nahi, Shalini ke liye शर्ट silwana hai",
+  "expected": {
+   "customer": "Shalini",
+   "items": [
+    {
+     "description": "shirt",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0180",
+  "domain": "electrician",
+  "received_at": "2026-08-22T16:07:00+05:30",
+  "message": "teen wiring bathroom me assi watt ki. tarso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "wiring",
+     "quantity": 3,
+     "attributes": {
+      "wattage": 80,
+      "room": "bathroom"
+     }
+    }
+   ],
+   "due_date": "2026-08-25",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0181",
+  "domain": "tailor",
+  "received_at": "2026-09-21T19:14:00+05:30",
+  "message": "Meena aunty ke liye paanch dupatta slim chest 46. mahine ke end tak, last wale jaisa",
+  "expected": {
+   "customer": "Meena aunty",
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 5,
+     "attributes": {
+      "fit": "slim",
+      "chest": 46
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0182",
+  "domain": "tiffin",
+  "received_at": "2026-10-10T12:00:00+05:30",
+  "message": "khichdi nahi, roti 5 din ke liye, 2 roti zyada rakhna, १ parantha breakfast me, aur rajma 6 din dinner me",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "roti",
+     "quantity": 1,
+     "attributes": {
+      "days": 5,
+      "roti_count": 2,
+      "portion": "extra"
+     }
+    },
+    {
+     "description": "paratha",
+     "quantity": 1,
+     "attributes": {
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "rajma",
+     "quantity": 1,
+     "attributes": {
+      "days": 6,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0183",
+  "domain": "tailor",
+  "received_at": "2026-09-13T11:00:00+05:30",
+  "message": "salwar length bayalis chest 40. tarso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "salwar",
+     "quantity": 1,
+     "attributes": {
+      "length": 42,
+      "chest": 40
+     }
+    }
+   ],
+   "due_date": "2026-09-16",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0184",
+  "domain": "tiffin",
+  "received_at": "2026-09-07T17:07:00+05:30",
+  "message": "Iqbal bhai ke liye थाली lunch me, pehle jaisa hi",
+  "expected": {
+   "customer": "Iqbal bhai",
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 1,
+     "attributes": {
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0185",
+  "domain": "tailor",
+  "received_at": "2026-10-11T12:22:00+05:30",
+  "message": "teen pant chahiye. jaldi chahiye, narsu tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "pant",
+     "quantity": 3,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-10-14",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0186",
+  "domain": "tiffin",
+  "received_at": "2026-09-09T20:07:00+05:30",
+  "message": "thali breakfast me. 11 Sep tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 1,
+     "attributes": {
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-09-11",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0187",
+  "domain": "tiffin",
+  "received_at": "2026-09-12T14:07:00+05:30",
+  "message": "tarso tak bhijwa dena bhaiya, aap jaante ho kya",
+  "expected": {
+   "customer": null,
+   "items": [],
+   "due_date": "2026-09-15",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0188",
+  "domain": "baker",
+  "received_at": "2026-09-30T09:14:00+05:30",
+  "message": "muffin nahi, do cheese cake square pineapple",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 2,
+     "attributes": {
+      "shape": "square",
+      "flavour": "pineapple"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0189",
+  "domain": "electrician",
+  "received_at": "2026-09-06T08:00:00+05:30",
+  "message": "invertor do geyser wale 80 watt ke. 21 tarikh tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "inverter",
+     "quantity": 2,
+     "attributes": {
+      "appliance": "geyser",
+      "wattage": 80
+     }
+    }
+   ],
+   "due_date": "2026-09-21",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0190",
+  "domain": "tiffin",
+  "received_at": "2026-08-28T15:14:00+05:30",
+  "message": "३ ya ४ pohe aur do idli dinner me. festival se pehle chahiye",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "poha",
+     "quantity": 3,
+     "attributes": {}
+    },
+    {
+     "description": "idli",
+     "quantity": 2,
+     "attributes": {
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0191",
+  "domain": "baker",
+  "received_at": "2026-09-07T16:00:00+05:30",
+  "message": "Sunita ji ek doughnut aur do cookies. doughnut 2 kg butterscotch, cookies 2 kg. urgent hai",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "donut",
+     "quantity": 1,
+     "attributes": {
+      "weight_kg": 2,
+      "flavour": "butterscotch"
+     }
+    },
+    {
+     "description": "cookies",
+     "quantity": 2,
+     "attributes": {
+      "weight_kg": 2
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0192",
+  "domain": "electrician",
+  "received_at": "2026-10-14T16:45:00+05:30",
+  "message": "MCB bathroom wala, fuse ud gaya. urgent, narsu tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "mcb",
+     "quantity": 1,
+     "attributes": {
+      "room": "bathroom",
+      "issue": "fuse blown"
+     }
+    }
+   ],
+   "due_date": "2026-10-17",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0193",
+  "domain": "tailor",
+  "received_at": "2026-10-12T08:31:00+05:30",
+  "message": "Gopal ji, paanch sherwani 3/4 sleeve size M silk chest 34, aur salwar silk size L. somvar ko nahi, mangalvar ko",
+  "expected": {
+   "customer": "Gopal ji",
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 5,
+     "attributes": {
+      "sleeve": "three-quarter",
+      "size": "M",
+      "fabric": "silk",
+      "chest": 34
+     }
+    },
+    {
+     "description": "salwar",
+     "quantity": 1,
+     "attributes": {
+      "fabric": "silk",
+      "size": "L"
+     }
+    }
+   ],
+   "due_date": "2026-10-13",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0194",
+  "domain": "electrician",
+  "received_at": "2026-09-24T10:31:00+05:30",
+  "message": "do fuse box assi watt ke, fan wale",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "mcb",
+     "quantity": 2,
+     "attributes": {
+      "wattage": 80,
+      "appliance": "fan"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0195",
+  "domain": "baker",
+  "received_at": "2026-08-22T19:53:00+05:30",
+  "message": "१ cookie aur ek doughnut. cookie eggless red velvet, doughnut eggless heart shape pineapple. last time jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cookies",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": true,
+      "flavour": "red velvet"
+     }
+    },
+    {
+     "description": "donut",
+     "quantity": 1,
+     "attributes": {
+      "egg_free": true,
+      "shape": "heart",
+      "flavour": "pineapple"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0196",
+  "domain": "electrician",
+  "received_at": "2026-08-31T11:14:00+05:30",
+  "message": "do switchboard lagwane hain, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "switch board",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0197",
+  "domain": "tailor",
+  "received_at": "2026-09-29T11:00:00+05:30",
+  "message": "teen kurta chest 44. urgent hai, 4 Oct tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 3,
+     "attributes": {
+      "chest": 44
+     }
+    }
+   ],
+   "due_date": "2026-10-04",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0198",
+  "domain": "electrician",
+  "received_at": "2026-09-28T15:31:00+05:30",
+  "message": "Rukhsana ke liye nahi, Farida ke liye chimney fan kitchen ka, light ka fuse ud gaya. 10 Oct tak",
+  "expected": {
+   "customer": "Farida",
+   "items": [
+    {
+     "description": "exhaust fan",
+     "quantity": 1,
+     "attributes": {
+      "room": "kitchen",
+      "appliance": "light",
+      "issue": "fuse blown"
+     }
+    }
+   ],
+   "due_date": "2026-10-10",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0199",
+  "domain": "tiffin",
+  "received_at": "2026-08-16T12:53:00+05:30",
+  "message": "Meena aunty, ek chhole normal masala 4 roti dinner me, teen paneer lunch ke liye, aur do daal normal zyada. jaldi chahiye, is weekend se",
+  "expected": {
+   "customer": "Meena aunty",
+   "items": [
+    {
+     "description": "chole",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "medium",
+      "roti_count": 4,
+      "meal": "dinner"
+     }
+    },
+    {
+     "description": "paneer sabzi",
+     "quantity": 3,
+     "attributes": {
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "dal",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "medium",
+      "portion": "extra"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0200",
+  "domain": "tailor",
+  "received_at": "2026-09-13T10:00:00+05:30",
+  "message": "२ dupatta, teen शेरवानी mustard aadha sleeve chest chalis, chhe pant chiffon length 40 chest 46. 19 Sep tak, last wale jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 2,
+     "attributes": {}
+    },
+    {
+     "description": "sherwani",
+     "quantity": 3,
+     "attributes": {
+      "color": "mustard",
+      "sleeve": "half",
+      "chest": 40
+     }
+    },
+    {
+     "description": "pant",
+     "quantity": 6,
+     "attributes": {
+      "fabric": "chiffon",
+      "length": 40,
+      "chest": 46
+     }
+    }
+   ],
+   "due_date": "2026-09-19",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0201",
+  "domain": "tiffin",
+  "received_at": "2026-08-18T08:07:00+05:30",
+  "message": "Priya ji, chole nahi, roti tez lunch me aur rajma 7 din dinner me. is weekend se",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "roti",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "spicy",
+      "meal": "lunch"
+     }
+    },
+    {
+     "description": "rajma",
+     "quantity": 1,
+     "attributes": {
+      "days": 7,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0202",
+  "domain": "tiffin",
+  "received_at": "2026-09-25T09:14:00+05:30",
+  "message": "ek khichdi aur chhe chhole. khichdi 5 roti 3 din breakfast me, chhole lunch ke liye",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "khichdi",
+     "quantity": 1,
+     "attributes": {
+      "roti_count": 5,
+      "days": 3,
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "chole",
+     "quantity": 6,
+     "attributes": {
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0203",
+  "domain": "baker",
+  "received_at": "2026-08-24T12:45:00+05:30",
+  "message": "ek cookie 2 tier vanilla. tarso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cookies",
+     "quantity": 1,
+     "attributes": {
+      "tier": 2,
+      "flavour": "vanilla"
+     }
+    }
+   ],
+   "due_date": "2026-08-27",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0204",
+  "domain": "baker",
+  "received_at": "2026-09-02T11:53:00+05:30",
+  "message": "ek bday cake butterscotch aur paanch cupcake. pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 1,
+     "attributes": {
+      "flavour": "butterscotch"
+     }
+    },
+    {
+     "description": "cupcake",
+     "quantity": 5,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0205",
+  "domain": "tiffin",
+  "received_at": "2026-09-12T11:07:00+05:30",
+  "message": "Vikram ke liye nahi, Naveen ke liye paneer tez, aur do dahi kam mirchi pura portion",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "paneer sabzi",
+     "quantity": 1,
+     "attributes": {
+      "spice_level": "spicy"
+     }
+    },
+    {
+     "description": "curd",
+     "quantity": 2,
+     "attributes": {
+      "spice_level": "mild",
+      "portion": "full"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0206",
+  "domain": "electrician",
+  "received_at": "2026-10-10T17:53:00+05:30",
+  "message": "teen exaust fan Usha ke, fan se awaaz aa rahi, aur tubelight chalis watt ka",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "exhaust fan",
+     "quantity": 3,
+     "attributes": {
+      "appliance": "fan",
+      "brand": "Usha",
+      "issue": "noise"
+     }
+    },
+    {
+     "description": "tube light",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 40
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0207",
+  "domain": "tiffin",
+  "received_at": "2026-10-10T20:45:00+05:30",
+  "message": "Shalini ji teen ya char daal 8 din 7 roti dinner me. asap chahiye",
+  "expected": {
+   "customer": "Shalini",
+   "items": [
+    {
+     "description": "dal",
+     "quantity": 3,
+     "attributes": {
+      "days": 8,
+      "roti_count": 7,
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0208",
+  "domain": "tailor",
+  "received_at": "2026-09-24T14:22:00+05:30",
+  "message": "Shalini ke liye ४ suit. somvar ko nahi, mangalvar ko",
+  "expected": {
+   "customer": "Shalini",
+   "items": [
+    {
+     "description": "suit",
+     "quantity": 4,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-29",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0209",
+  "domain": "electrician",
+  "received_at": "2026-08-27T10:53:00+05:30",
+  "message": "Priya ji, tubelight Anchor ka bathroom me dheema hai. 8 din me. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "tube light",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Anchor",
+      "room": "bathroom",
+      "issue": "slow"
+     }
+    }
+   ],
+   "due_date": "2026-09-04",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0210",
+  "domain": "tailor",
+  "received_at": "2026-09-06T11:22:00+05:30",
+  "message": "Rakesh ji do dupatta length aadtis waist 40 chest 38",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 2,
+     "attributes": {
+      "length": 38,
+      "waist": 40,
+      "chest": 38
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0211",
+  "domain": "baker",
+  "received_at": "2026-09-15T16:53:00+05:30",
+  "message": "Neha ji, do cheese cake heart 1 tier 0.5 kg coffee, aur teen bread 2 tier red velvet. urgent, tarso tak",
+  "expected": {
+   "customer": "Neha",
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 2,
+     "attributes": {
+      "shape": "heart",
+      "tier": 1,
+      "weight_kg": 0.5,
+      "flavour": "coffee"
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 3,
+     "attributes": {
+      "tier": 2,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": "2026-09-18",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0212",
+  "domain": "tiffin",
+  "received_at": "2026-08-20T12:53:00+05:30",
+  "message": "Naveen ji do sabji zyada dinner me aur char thali pura portion lunch me. urgent hai, is weekend se, 650 tak",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "sabzi",
+     "quantity": 2,
+     "attributes": {
+      "portion": "extra",
+      "meal": "dinner"
+     }
+    },
+    {
+     "description": "thali",
+     "quantity": 4,
+     "attributes": {
+      "portion": "full",
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": "2026-08-22",
+   "amount": 650.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0213",
+  "domain": "tiffin",
+  "received_at": "2026-08-23T19:00:00+05:30",
+  "message": "Kavita ji do thali 5 din jain 6 roti lunch me. agle mahine, 800 tak",
+  "expected": {
+   "customer": "Kavita",
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 2,
+     "attributes": {
+      "days": 5,
+      "jain": true,
+      "roti_count": 6,
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 800.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0214",
+  "domain": "electrician",
+  "received_at": "2026-08-15T13:53:00+05:30",
+  "message": "Ramesh ji ke liye ghanti Bajaj ki. narsu tak, pichli baar jaisa",
+  "expected": {
+   "customer": "Ramesh",
+   "items": [
+    {
+     "description": "doorbell",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Bajaj"
+     }
+    }
+   ],
+   "due_date": "2026-08-18",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0215",
+  "domain": "baker",
+  "received_at": "2026-09-17T17:00:00+05:30",
+  "message": "paanch bday cake pineapple, do kek strawberry, paanch ब्रेड normal ande wale vanilla. urgent, aaj tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 5,
+     "attributes": {
+      "flavour": "pineapple"
+     }
+    },
+    {
+     "description": "cake",
+     "quantity": 2,
+     "attributes": {
+      "flavour": "strawberry"
+     }
+    },
+    {
+     "description": "bread loaf",
+     "quantity": 5,
+     "attributes": {
+      "egg_free": false,
+      "flavour": "vanilla"
+     }
+    }
+   ],
+   "due_date": "2026-09-17",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0216",
+  "domain": "tailor",
+  "received_at": "2026-09-22T14:14:00+05:30",
+  "message": "ek salwar size L waist 36 chest 40 aur ek pant white khadi chest 34. somvar ko nahi, budhvar ko, 800 tak, last wale jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "salwar",
+     "quantity": 1,
+     "attributes": {
+      "size": "L",
+      "waist": 36,
+      "chest": 40
+     }
+    },
+    {
+     "description": "pant",
+     "quantity": 1,
+     "attributes": {
+      "color": "white",
+      "fabric": "khadi",
+      "chest": 34
+     }
+    }
+   ],
+   "due_date": "2026-09-23",
+   "amount": 800.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0217",
+  "domain": "tailor",
+  "received_at": "2026-09-11T16:53:00+05:30",
+  "message": "teen kameez chest 38, ek pant 3/4 sleeve, do suit XL chest 34. season shuru hone se pehle",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "kameez",
+     "quantity": 3,
+     "attributes": {
+      "chest": 38
+     }
+    },
+    {
+     "description": "pant",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "three-quarter"
+     }
+    },
+    {
+     "description": "suit",
+     "quantity": 2,
+     "attributes": {
+      "size": "XL",
+      "chest": 34
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0218",
+  "domain": "electrician",
+  "received_at": "2026-08-15T09:31:00+05:30",
+  "message": "Manoj ke liye nahi, Tarun ke liye ४ pankha Orient ke, 650 tak, pichli baar jaisa",
+  "expected": {
+   "customer": "Tarun",
+   "items": [
+    {
+     "description": "ceiling fan",
+     "quantity": 4,
+     "attributes": {
+      "brand": "Orient"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 650.0,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0219",
+  "domain": "electrician",
+  "received_at": "2026-09-12T14:22:00+05:30",
+  "message": "gizer char fridge point ke bedroom me, chingari nikal rahi hai",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "geyser",
+     "quantity": 4,
+     "attributes": {
+      "appliance": "fridge point",
+      "room": "bedroom",
+      "issue": "spark"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0220",
+  "domain": "baker",
+  "received_at": "2026-10-04T20:14:00+05:30",
+  "message": "Asha ke liye nahi, Shalini ke liye ब्राउनी 2 tier aur ५ bday cake. 500 tak",
+  "expected": {
+   "customer": "Shalini",
+   "items": [
+    {
+     "description": "brownie",
+     "quantity": 1,
+     "attributes": {
+      "tier": 2
+     }
+    },
+    {
+     "description": "birthday cake",
+     "quantity": 5,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": 500.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0221",
+  "domain": "baker",
+  "received_at": "2026-09-26T17:31:00+05:30",
+  "message": "Priya ke liye do bday cake square shape. 17 tarikh tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": "Priya",
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 2,
+     "attributes": {
+      "shape": "square"
+     }
+    }
+   ],
+   "due_date": "2026-10-17",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0222",
+  "domain": "tailor",
+  "received_at": "2026-08-23T18:22:00+05:30",
+  "message": "suit waist battis length 44 chest 44. last time jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "suit",
+     "quantity": 1,
+     "attributes": {
+      "waist": 32,
+      "length": 44,
+      "chest": 44
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0223",
+  "domain": "electrician",
+  "received_at": "2026-09-17T17:14:00+05:30",
+  "message": "switchboard paanch Orient ke fridge point wale bathroom me short ho gaya, aur ट्यूब लाइट 80 watt bathroom ka dheema hai",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "switch board",
+     "quantity": 5,
+     "attributes": {
+      "brand": "Orient",
+      "appliance": "fridge point",
+      "room": "bathroom",
+      "issue": "short circuit"
+     }
+    },
+    {
+     "description": "tube light",
+     "quantity": 1,
+     "attributes": {
+      "wattage": 80,
+      "room": "bathroom",
+      "issue": "slow"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0224",
+  "domain": "baker",
+  "received_at": "2026-08-30T16:00:00+05:30",
+  "message": "cheese cake २ round. is weekend tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 2,
+     "attributes": {
+      "shape": "round"
+     }
+    }
+   ],
+   "due_date": "2026-09-05",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0225",
+  "domain": "baker",
+  "received_at": "2026-09-22T17:53:00+05:30",
+  "message": "ek cookie 3 tier. tarso tak. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "cookies",
+     "quantity": 1,
+     "attributes": {
+      "tier": 3
+     }
+    }
+   ],
+   "due_date": "2026-09-25",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0226",
+  "domain": "tailor",
+  "received_at": "2026-09-09T11:14:00+05:30",
+  "message": "Naveen ke liye teen kurta khadi chest aadtis. is weekend tak",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "kurta",
+     "quantity": 3,
+     "attributes": {
+      "fabric": "khadi",
+      "chest": 38
+     }
+    }
+   ],
+   "due_date": "2026-09-12",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0227",
+  "domain": "baker",
+  "received_at": "2026-09-24T18:45:00+05:30",
+  "message": "Iqbal bhai ke liye nahi, Sunita ke liye पेस्ट्री chahiye, jaldi bhej dena",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 1,
+     "attributes": {}
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0228",
+  "domain": "baker",
+  "received_at": "2026-09-04T09:14:00+05:30",
+  "message": "Deepak bhai ke liye cake nahi, sirf do muffin strawberry. 4 tarikh tak",
+  "expected": {
+   "customer": "Deepak bhai",
+   "items": [
+    {
+     "description": "muffin",
+     "quantity": 2,
+     "attributes": {
+      "flavour": "strawberry"
+     }
+    }
+   ],
+   "due_date": "2026-09-04",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0229",
+  "domain": "baker",
+  "received_at": "2026-08-24T13:07:00+05:30",
+  "message": "pastry nahi, Naveen ke liye १ bday cake 1 tier strawberry. next week kabhi bhi de dena",
+  "expected": {
+   "customer": "Naveen",
+   "items": [
+    {
+     "description": "birthday cake",
+     "quantity": 1,
+     "attributes": {
+      "tier": 1,
+      "flavour": "strawberry"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0230",
+  "domain": "tiffin",
+  "received_at": "2026-08-22T10:07:00+05:30",
+  "message": "१ idli, ek paneer aur paanch thali. paneer 4 din normal masala breakfast me, thali zyada portion 4 roti. parso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "idli",
+     "quantity": 1,
+     "attributes": {}
+    },
+    {
+     "description": "paneer sabzi",
+     "quantity": 1,
+     "attributes": {
+      "days": 4,
+      "spice_level": "medium",
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "thali",
+     "quantity": 5,
+     "attributes": {
+      "portion": "extra",
+      "roti_count": 4
+     }
+    }
+   ],
+   "due_date": "2026-08-24",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0231",
+  "domain": "electrician",
+  "received_at": "2026-08-23T16:53:00+05:30",
+  "message": "socket nahi, teen exaust fan geyser wale, current aa raha hai. 200 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "exhaust fan",
+     "quantity": 3,
+     "attributes": {
+      "appliance": "geyser",
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": 200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0232",
+  "domain": "tiffin",
+  "received_at": "2026-08-15T08:07:00+05:30",
+  "message": "Rakesh ji छोले jain nahi, 8 roti ke saath. diwali se pehle",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "chole",
+     "quantity": 1,
+     "attributes": {
+      "jain": false,
+      "roti_count": 8
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0233",
+  "domain": "tiffin",
+  "received_at": "2026-08-30T12:22:00+05:30",
+  "message": "teen paneer aur ६ खिचड़ी. paneer 13 din breakfast me, khichdi 4 roti normal masala dinner me. agle hafte se",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "paneer sabzi",
+     "quantity": 3,
+     "attributes": {
+      "days": 13,
+      "meal": "breakfast"
+     }
+    },
+    {
+     "description": "khichdi",
+     "quantity": 6,
+     "attributes": {
+      "roti_count": 4,
+      "spice_level": "medium",
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": "2026-09-06",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0234",
+  "domain": "tailor",
+  "received_at": "2026-09-17T12:07:00+05:30",
+  "message": "ek shart 3/4 sleeve",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "shirt",
+     "quantity": 1,
+     "attributes": {
+      "sleeve": "three-quarter"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0235",
+  "domain": "tailor",
+  "received_at": "2026-09-06T14:07:00+05:30",
+  "message": "lehenga do linen aadha sleeve chest 34, pyjama do chest 42, aur suit do velvet maroon chest 42. tarso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "lehenga",
+     "quantity": 2,
+     "attributes": {
+      "fabric": "linen",
+      "sleeve": "half",
+      "chest": 34
+     }
+    },
+    {
+     "description": "pajama",
+     "quantity": 2,
+     "attributes": {
+      "chest": 42
+     }
+    },
+    {
+     "description": "suit",
+     "quantity": 2,
+     "attributes": {
+      "fabric": "velvet",
+      "color": "maroon",
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": "2026-09-09",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0236",
+  "domain": "tiffin",
+  "received_at": "2026-09-08T18:31:00+05:30",
+  "message": "ek पराठा dinner me. jitna jaldi ho sake, pehle jaisa hi",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "paratha",
+     "quantity": 1,
+     "attributes": {
+      "meal": "dinner"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0237",
+  "domain": "tailor",
+  "received_at": "2026-08-18T14:22:00+05:30",
+  "message": "sherwani length 46 3/4 sleeve waist 36, aur paanch dupatta XXL. jaldi chahiye, agle hafte tak, 1200 tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 1,
+     "attributes": {
+      "length": 46,
+      "sleeve": "three-quarter",
+      "waist": 36
+     }
+    },
+    {
+     "description": "dupatta",
+     "quantity": 5,
+     "attributes": {
+      "size": "XXL"
+     }
+    }
+   ],
+   "due_date": "2026-08-25",
+   "amount": 1200.0,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0238",
+  "domain": "tailor",
+  "received_at": "2026-09-26T11:53:00+05:30",
+  "message": "teen koti size XL pura sleeve chest bayalis",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "waistcoat",
+     "quantity": 3,
+     "attributes": {
+      "size": "XL",
+      "sleeve": "full",
+      "chest": 42
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0239",
+  "domain": "baker",
+  "received_at": "2026-08-24T14:07:00+05:30",
+  "message": "Deepak bhai ke liye nahi, Meena aunty ke liye char pastry normal ande wali, 1 tier, pineapple. agle hafte tak",
+  "expected": {
+   "customer": "Meena aunty",
+   "items": [
+    {
+     "description": "pastry",
+     "quantity": 4,
+     "attributes": {
+      "egg_free": false,
+      "tier": 1,
+      "flavour": "pineapple"
+     }
+    }
+   ],
+   "due_date": "2026-08-31",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0240",
+  "domain": "baker",
+  "received_at": "2026-08-27T19:00:00+05:30",
+  "message": "cake nahi, ek bread mango wala. last time jaisa",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "bread loaf",
+     "quantity": 1,
+     "attributes": {
+      "flavour": "mango"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0241",
+  "domain": "tiffin",
+  "received_at": "2026-08-28T18:31:00+05:30",
+  "message": "sabzi nahi, Sunita ji २ थाली. 4 Sep tak, pichli baar jaisa",
+  "expected": {
+   "customer": "Sunita",
+   "items": [
+    {
+     "description": "thali",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-04",
+   "amount": null,
+   "references_prior_order": true,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0242",
+  "domain": "baker",
+  "received_at": "2026-09-12T14:53:00+05:30",
+  "message": "Sarita didi ke liye nahi, Shalini ke liye cheese cake aur ek cookie 3 tier square. २० तारीख tak",
+  "expected": {
+   "customer": "Shalini",
+   "items": [
+    {
+     "description": "cheesecake",
+     "quantity": 1,
+     "attributes": {}
+    },
+    {
+     "description": "cookies",
+     "quantity": 1,
+     "attributes": {
+      "tier": 3,
+      "shape": "square"
+     }
+    }
+   ],
+   "due_date": "2026-09-20",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0243",
+  "domain": "tailor",
+  "received_at": "2026-09-13T14:22:00+05:30",
+  "message": "Rakesh ji do ya teen dupatta 3/4 sleeve bottle green chest 36",
+  "expected": {
+   "customer": "Rakesh",
+   "items": [
+    {
+     "description": "dupatta",
+     "quantity": 2,
+     "attributes": {
+      "sleeve": "three-quarter",
+      "color": "bottle green",
+      "chest": 36
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0244",
+  "domain": "electrician",
+  "received_at": "2026-09-06T10:00:00+05:30",
+  "message": "Asha ji, ६ MCB bedroom ke 80 watt chal nahi raha, aur २ wiring Bajaj ki ac wali se awaaz aa rahi hai. urgent, 7 din me",
+  "expected": {
+   "customer": "Asha",
+   "items": [
+    {
+     "description": "mcb",
+     "quantity": 6,
+     "attributes": {
+      "room": "bedroom",
+      "wattage": 80,
+      "issue": "not working"
+     }
+    },
+    {
+     "description": "wiring",
+     "quantity": 2,
+     "attributes": {
+      "brand": "Bajaj",
+      "appliance": "ac",
+      "issue": "noise"
+     }
+    }
+   ],
+   "due_date": "2026-09-13",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0245",
+  "domain": "tiffin",
+  "received_at": "2026-08-30T17:45:00+05:30",
+  "message": "khichdi jain nahi, 4 roti, 6 din ke liye, breakfast me. 3 Sep tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "khichdi",
+     "quantity": 1,
+     "attributes": {
+      "jain": false,
+      "roti_count": 4,
+      "days": 6,
+      "meal": "breakfast"
+     }
+    }
+   ],
+   "due_date": "2026-09-03",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0246",
+  "domain": "tiffin",
+  "received_at": "2026-08-30T20:14:00+05:30",
+  "message": "do rajma pura portion lunch me. pichli baar jaisa nahi, is baar naya",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "rajma",
+     "quantity": 2,
+     "attributes": {
+      "portion": "full",
+      "meal": "lunch"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0247",
+  "domain": "electrician",
+  "received_at": "2026-08-22T10:31:00+05:30",
+  "message": "chhe ya saat exaust fan Havells ke chal nahi raha, aur switchboard Orient ka current aa raha hai. parso tak",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "exhaust fan",
+     "quantity": 6,
+     "attributes": {
+      "brand": "Havells",
+      "issue": "not working"
+     }
+    },
+    {
+     "description": "switch board",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Orient",
+      "issue": "leaking current"
+     }
+    }
+   ],
+   "due_date": "2026-08-24",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0248",
+  "domain": "electrician",
+  "received_at": "2026-09-21T18:07:00+05:30",
+  "message": "Deepak bhai, switchboard Havells ka kitchen me, aur plug point do. 27 Sep tak",
+  "expected": {
+   "customer": "Deepak bhai",
+   "items": [
+    {
+     "description": "switch board",
+     "quantity": 1,
+     "attributes": {
+      "brand": "Havells",
+      "room": "kitchen"
+     }
+    },
+    {
+     "description": "socket",
+     "quantity": 2,
+     "attributes": {}
+    }
+   ],
+   "due_date": "2026-09-27",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": true
+  }
+ },
+ {
+  "id": "train-0249",
+  "domain": "baker",
+  "received_at": "2026-09-23T11:45:00+05:30",
+  "message": "bread do eggless aur browni chhe eggless red velvet",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "bread loaf",
+     "quantity": 2,
+     "attributes": {
+      "egg_free": true
+     }
+    },
+    {
+     "description": "brownie",
+     "quantity": 6,
+     "attributes": {
+      "egg_free": true,
+      "flavour": "red velvet"
+     }
+    }
+   ],
+   "due_date": null,
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ },
+ {
+  "id": "train-0250",
+  "domain": "tailor",
+  "received_at": "2026-09-25T11:14:00+05:30",
+  "message": "chhe sherwani length 38 waist 28 chest 42, do blouse pink length 46 chest 36, aur paanch pant chest 46. budhvar ko nahi, shukravar ko",
+  "expected": {
+   "customer": null,
+   "items": [
+    {
+     "description": "sherwani",
+     "quantity": 6,
+     "attributes": {
+      "length": 38,
+      "waist": 28,
+      "chest": 42
+     }
+    },
+    {
+     "description": "blouse",
+     "quantity": 2,
+     "attributes": {
+      "color": "pink",
+      "length": 46,
+      "chest": 36
+     }
+    },
+    {
+     "description": "pant",
+     "quantity": 5,
+     "attributes": {
+      "chest": 46
+     }
+    }
+   ],
+   "due_date": "2026-10-02",
+   "amount": null,
+   "references_prior_order": false,
+   "confidence": 1.0,
+   "needs_clarification": false
+  }
+ }
+]

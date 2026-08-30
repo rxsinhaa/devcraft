@@ -58,16 +58,32 @@ If offline, rate-limited, or timed out, processing defaults immediately to [nlpP
 
 ---
 
-## 4. Deterministic Sync & Causality Clock
+## 4. Offline Sync & Conflict Resolution
 
-Replicating data across peer-to-peer or disconnected client nodes requires deterministic conflict resolution:
+Replicating data across disconnected client nodes requires a robust, eventually consistent replication architecture. Resolv implements an **Operation-Log based synchronization** system to achieve this:
 
-* **Event Sourcing**: Local database modifications are captured as immutable mutation logs (`event_log` table) recording `CREATE`, `UPDATE`, or `DELETE` events.
-* **Hybrid Logical Clocks (HLC)**: Every mutation is tagged with an HLC timestamp (`physical:logical:node_id`). HLC ensures causal ordering (happens-before relationship) without requiring a centralized coordinator or synchronized device clocks.
-* **Conflict Resolution**: During sync replay:
-  * Concurrent updates to identical fields from different devices are caught by comparing event timestamps.
-  * Rather than executing silent Last-Write-Wins (LWW) overrides, the engine suspends the automatic merge and writes the divergent properties to a `conflict_state` table.
-  * A dedicated **Conflict Resolution Modal** blocks operation on that record until the operator manually selects the correct state.
+1. **Operations as Single Source of Truth**: Every offline mutation (creation, deletion, updates, or resolution) is persisted locally as an `Operation` object:
+   * `operationId`: UUIDv4 identifier acting as an idempotency key.
+   * `deviceId`: Stable device identifier persisted in `localStorage`.
+   * `timestamp`: Unix timestamp (ms) representing the time the mutation occurred.
+   * `orderId`: Target order ID.
+   * `type`: Mutation action (`CREATE_ORDER`, `DELETE_ORDER`, `UPDATE_FIELD`, `RESOLVE_CONFLICT`).
+   * `field` & `newValue` & `oldValue`: Captured metadata for fine-grained changes.
+2. **Deterministic Convergence (Reconnection Order Independence)**: Convergence is entirely independent of network transport/server arrival order. All incoming and local operations are sorted deterministically using the tie-breaker:
+   
+       timestamp ──> deviceId ──> operationId
+   
+   If timestamps are identical, the deviceId is compared lexicographically; if those also collide, the operationId is compared lexicographically. This ensures that every peer replays operations in the exact same logical sequence.
+   
+   > [!IMPORTANT]
+   > We do not use server arrival/reconnection order as the conflict-resolution mechanism because that would make convergence dependent on network timing.
+3. **Idempotency**: Duplicate operations received via network retries are identified by `operationId` and ignored, ensuring sync runs are completely idempotent.
+4. **Conflict Resolution Rules**:
+   * **Different Fields**: Changes to different fields of the same order (e.g. Device A edits `due_date`, Device B edits `amount`) merge automatically.
+   * **Same Field, Same Value**: Changes to the same field proposing the same value converge automatically without conflict.
+   * **Same Field, Different Values**: Concurrent edits to the same field proposing different values create a surfaced conflict record in the database. Both proposed values are preserved (no silent data loss).
+   * **Resolution Logging**: Manual operator conflict resolutions are recorded and propagated as `RESOLVE_CONFLICT` operations.
+   * **Delete vs Update**: If one device deletes an order while another modifies it concurrently, a conflict is surfaced (`[Confirm Deletion]` / `[Restore Order]`). Tombstones prevent silent order resurrection.
 
 ---
 
