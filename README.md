@@ -58,16 +58,70 @@ If offline, rate-limited, or timed out, processing defaults immediately to [nlpP
 
 ---
 
-## 4. Deterministic Sync & Causality Clock
+## 4. Offline Sync & Conflict Resolution
 
-Replicating data across peer-to-peer or disconnected client nodes requires deterministic conflict resolution:
+Replicating data across distributed peer nodes (e.g. operator's phone and a tablet, or multiple staff members going offline) requires deterministic convergence without silent data loss.
 
-* **Event Sourcing**: Local database modifications are captured as immutable mutation logs (`event_log` table) recording `CREATE`, `UPDATE`, or `DELETE` events.
-* **Hybrid Logical Clocks (HLC)**: Every mutation is tagged with an HLC timestamp (`physical:logical:node_id`). HLC ensures causal ordering (happens-before relationship) without requiring a centralized coordinator or synchronized device clocks.
-* **Conflict Resolution**: During sync replay:
-  * Concurrent updates to identical fields from different devices are caught by comparing event timestamps.
-  * Rather than executing silent Last-Write-Wins (LWW) overrides, the engine suspends the automatic merge and writes the divergent properties to a `conflict_state` table.
-  * A dedicated **Conflict Resolution Modal** blocks operation on that record until the operator manually selects the correct state.
+### A. Operation-Log Model
+Every offline mutation to an order is represented as an immutable, structured **Operation**:
+```typescript
+interface Operation {
+  operationId: string;    // UUID / unique identifier
+  deviceId: string;       // Persistent client device identifier
+  orderId: string;        // Target Order ID
+  timestamp: number;      // Epoch timestamp (ms)
+  type: "CREATE_ORDER" | "UPDATE_FIELD" | "DELETE_ORDER" | "RESOLVE_CONFLICT";
+  field?: string;         // Target field (e.g. "amount", "due_date", "customer", "items")
+  oldValue?: unknown;     // Previous value for auditability
+  newValue?: unknown;     // Proposed mutation value
+  conflictId?: string;    // Conflict reference for RESOLVE_CONFLICT operations
+  synced?: boolean;       // Local sync acknowledgment status
+}
+```
+
+### B. Persistent Local Operation Queue & Device ID
+* **Device ID**: Each client maintains a persistent, unique device identifier stored in `localStorage.getItem("deviceId")`. It remains stable across browser sessions without depending on human operator names.
+* **Persistent Queue**: When a user modifies an order while offline:
+  1. The change is optimistically applied to the local view in IndexedDB (`db.orders`).
+  2. An operation record is created with `synced: false`.
+  3. The operation is appended to the persistent IndexedDB queue (`db.operations`).
+  4. The operation queue survives application restarts, page reloads, and browser closures.
+
+### C. Idempotent Synchronization Protocol
+When connectivity returns:
+1. The client reads all unsynced operations from `db.operations` and sends them via `POST /api/sync`.
+2. The server processes incoming operations using `operationId` as an **idempotency key**. Duplicate operations caused by network retries are applied exactly once.
+3. The server merges the incoming operations with its master operation log and returns any operations missing on the client.
+4. The client marks acknowledged operations as `synced: true` and deterministically replays remote operations.
+
+### D. Deterministic Total Ordering
+To guarantee that all nodes converge to the identical state regardless of network routing, operations are strictly ordered using:
+$$\text{timestamp} \longrightarrow \text{deviceId} \longrightarrow \text{operationId}$$
+
+```typescript
+function compareOperations(a: Operation, b: Operation): number {
+  if (a.timestamp !== b.timestamp) {
+    return a.timestamp - b.timestamp; // Earlier timestamp first
+  }
+  const devCmp = a.deviceId.localeCompare(b.deviceId); // Deterministic tie-breaker 1
+  if (devCmp !== 0) return devCmp;
+  return a.operationId.localeCompare(b.operationId);    // Deterministic tie-breaker 2
+}
+```
+
+> [!IMPORTANT]
+> **Why Reconnection Order is Never Used**:
+> We do NOT use server arrival or reconnection order as the conflict-resolution mechanism because that would make convergence dependent on network transport latency. **Reconnection order is transport order, not business-decision order.** The same set of offline operations produces the exact same final state whether the phone or tablet reconnects first.
+
+### E. Merge & Conflict Policies
+1. **Non-Conflicting Merge**: If Device A edits `amount` and Device B edits `due_date`, both edits merge cleanly into the order.
+2. **Same-Value Convergence**: If Device A and Device B both set `quantity` to `15`, the system converges automatically without creating an unnecessary conflict.
+3. **Explicit Conflict Surfacing**: If Device A sets `quantity = 15` and Device B sets `quantity = 20`:
+   - Neither value is silently overwritten or discarded.
+   - An explicit `ConflictRecord` is generated preserving **both** proposed values (`15` and `20`), their device IDs, and their timestamps.
+   - The order's `needs_clarification` flag is raised (`true`), alerting operators in the dashboard.
+4. **Delete vs. Update Safety**: If Device A deletes an order while Device B updates it offline, a deletion conflict is surfaced (`[Keep Deleted]` vs. `[Restore Order]`). The order is never silently resurrected or purged.
+5. **Auditable Conflict Resolution**: When an operator resolves a conflict in the UI, a new `RESOLVE_CONFLICT` operation is generated, preserving the full audit trail across all devices.
 
 ---
 

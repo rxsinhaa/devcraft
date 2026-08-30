@@ -2,20 +2,22 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { 
-  db, 
-  LocalOrder, 
-  ConflictState, 
-  EventLogEntry, 
-  createOrder, 
-  updateOrder, 
-  deleteOrder, 
-  resolveConflict, 
-  getActiveOrders, 
-  toggleOrderCompletion, 
+import {
+  db,
+  LocalOrder,
+  ConflictState,
+  EventLogEntry,
+  createOrder,
+  updateOrder,
+  deleteOrder,
+  resolveConflict,
+  getActiveOrders,
+  toggleOrderCompletion,
   togglePaymentStatus,
-  replayEvents
+  replayEvents,
+  syncWithServer
 } from "@/lib/db";
+import { getDeviceId } from "@/lib/syncEngine";
 import { parseMessage } from "@/lib/llmClient";
 import { OrderRecord } from "@/schema";
 import styles from "./page.module.css";
@@ -32,6 +34,7 @@ export default function Dashboard() {
   const [inputText, setInputText] = useState("");
   const [selectedHistoryCustomer, setSelectedHistoryCustomer] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [isConflictModalOpen, setIsConflictModalOpen] = useState(false);
   const [onlineStatus, setOnlineStatus] = useState(true);
   const [nodeId, setNodeId] = useState<string>("");
@@ -40,11 +43,23 @@ export default function Dashboard() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setOnlineStatus(navigator.onLine);
-      setNodeId(localStorage.getItem("hlc_node_id") || "device_node");
-      const goOnline = () => setOnlineStatus(true);
+      setNodeId(getDeviceId());
+
+      const goOnline = () => {
+        setOnlineStatus(true);
+        // Automatic background sync when connection returns
+        syncWithServer().catch(e => console.error("Auto-sync failed on reconnect:", e));
+      };
       const goOffline = () => setOnlineStatus(false);
+
       window.addEventListener("online", goOnline);
       window.addEventListener("offline", goOffline);
+
+      // Trigger initial sync if online
+      if (navigator.onLine) {
+        syncWithServer().catch(() => {});
+      }
+
       return () => {
         window.removeEventListener("online", goOnline);
         window.removeEventListener("offline", goOffline);
@@ -57,6 +72,16 @@ export default function Dashboard() {
 
   // 2. Live Query active conflicts
   const conflicts = useLiveQuery(() => db.conflict_state.toArray()) || [];
+
+  // 3. Live Query unsynced operations count
+  const unsyncedOpsCount = useLiveQuery(async () => {
+    try {
+      const ops = await db.operations.toArray();
+      return ops.filter(o => !o.synced).length;
+    } catch {
+      return 0;
+    }
+  }) || 0;
 
   // Local helper for Today's Date representation
   const todayStr = useMemo(() => getLocalDateString(), []);
@@ -156,13 +181,30 @@ export default function Dashboard() {
     try {
       // 1. Hybrid routing pipeline
       const parsedRecord = await parseMessage(inputText);
-      // 2. Persist in Dexie (with automatic event logging)
+      // 2. Persist in Dexie (with automatic operation queueing)
       await createOrder(inputText, parsedRecord);
       setInputText("");
+      // 3. Opportunistic background sync if online
+      if (navigator.onLine) {
+        syncWithServer().catch(() => {});
+      }
     } catch (e) {
       console.error("Order processing failed:", e);
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  // Explicit sync handler
+  const handleManualSync = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await syncWithServer();
+      alert(`Sync completed! ${res.syncedCount} local ops acknowledged, ${res.peerOpsCount} remote ops applied.`);
+    } catch (e: any) {
+      alert(`Sync failed: ${e.message}`);
+    } finally {
+      setIsSyncing(false);
     }
   };
 
@@ -177,7 +219,7 @@ export default function Dashboard() {
       alert("Please add at least one order first to simulate a conflict.");
       return;
     }
-    
+
     // Choose the first active order
     const targetOrder = orders[0];
     const remoteNodeId = "device_tablet_99";
@@ -195,8 +237,8 @@ export default function Dashboard() {
     };
 
     alert(`Simulating conflict! Replaying a remote amount change from Tablet node for order: ${targetOrder.customer || "Unknown"}`);
-    
-    // Replay this remote event. Since the order is unsynced locally, it triggers a conflict!
+
+    // Replay this remote event. Triggers conflict in operation engine!
     await replayEvents([remoteAmountEvent]);
     setIsConflictModalOpen(true);
   };
@@ -208,18 +250,26 @@ export default function Dashboard() {
         <div className={styles.titleArea}>
           <h1 className={styles.title}>Offline Order Console</h1>
           <span className={`${styles.badge} ${onlineStatus ? styles.badgeOnline : styles.badgeOffline}`}>
-            {onlineStatus ? "Online (LLM API)" : "Offline (Local Fallback)"}
+            {onlineStatus ? "Online (Sync Active)" : "Offline (Local Queue)"}
           </span>
+          {unsyncedOpsCount > 0 && (
+            <span className={styles.badge} style={{ background: "rgba(245, 158, 11, 0.2)", color: "var(--accent-warning)" }}>
+              {unsyncedOpsCount} unsynced op(s)
+            </span>
+          )}
         </div>
         <div className={styles.controls}>
+          <button className={`${styles.button} ${styles.buttonSecondary}`} onClick={handleManualSync} disabled={isSyncing}>
+            {isSyncing ? "Syncing..." : "🔄 Sync Now"}
+          </button>
           <button className={`${styles.button} ${styles.buttonSecondary}`} onClick={toggleNetworkSimulation}>
             Mock Network Status
           </button>
           <button className={`${styles.button} ${styles.buttonSecondary}`} onClick={handleSimulateConflict}>
-            Simulate Sync Conflict
+            Simulate Conflict
           </button>
           <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-            Node ID: {nodeId || "loading..."}
+            Device ID: {nodeId || "loading..."}
           </span>
         </div>
       </header>
@@ -227,9 +277,9 @@ export default function Dashboard() {
       {/* 2. Conflict Banner warning */}
       {conflicts.length > 0 && (
         <div className={styles.conflictBanner}>
-          <span>⚠️ {conflicts.length} Sync Conflict(s) Detected! Replay paused on concurrent offline edits.</span>
+          <span>⚠️ {conflicts.length} Sync Conflict(s) Detected! Concurrent offline edits require manual resolution.</span>
           <button className={`${styles.button} ${styles.buttonWarning}`} onClick={() => setIsConflictModalOpen(true)}>
-            Resolve Conflicts
+            Resolve Conflicts ({conflicts.length})
           </button>
         </div>
       )}
@@ -287,20 +337,20 @@ export default function Dashboard() {
                       </span>
                       <div className={styles.statusIndicator}>
                         {/* Toggle completion status button */}
-                        <button 
-                          className={`${styles.button} ${styles.buttonSecondary}`} 
+                        <button
+                          className={`${styles.button} ${styles.buttonSecondary}`}
                           style={{ padding: "2px 6px", fontSize: "10px" }}
                           onClick={() => toggleOrderCompletion(o.id)}
                         >
                           {o.is_completed ? "✓ Done" : "Active"}
                         </button>
                         {/* Toggle payment status button */}
-                        <button 
-                          className={`${styles.button} ${styles.buttonSecondary}`} 
-                          style={{ 
-                            padding: "2px 6px", 
-                            fontSize: "10px", 
-                            color: o.payment_status === "paid" ? "var(--accent-success)" : "var(--accent-warning)" 
+                        <button
+                          className={`${styles.button} ${styles.buttonSecondary}`}
+                          style={{
+                            padding: "2px 6px",
+                            fontSize: "10px",
+                            color: o.payment_status === "paid" ? "var(--accent-success)" : "var(--accent-warning)"
                           }}
                           onClick={() => togglePaymentStatus(o.id)}
                         >
@@ -308,13 +358,13 @@ export default function Dashboard() {
                         </button>
                         {/* Clarification alert indicator */}
                         {o.parsed_order.needs_clarification && (
-                          <span style={{ color: "var(--accent-warning)", fontSize: "13px" }} title="Needs Clarification">⚠️</span>
+                          <span style={{ color: "var(--accent-warning)", fontSize: "13px" }} title="Needs Clarification / Conflict Pending">⚠️</span>
                         )}
                         {/* Sync status indicator */}
-                        <span 
-                          style={{ 
-                            fontSize: "8px", 
-                            color: o.sync_status === "synced" ? "var(--accent-success)" : "var(--accent-warning)" 
+                        <span
+                          style={{
+                            fontSize: "8px",
+                            color: o.sync_status === "synced" ? "var(--accent-success)" : "var(--accent-warning)"
                           }}
                           title={`Sync Status: ${o.sync_status}`}
                         >
@@ -444,7 +494,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                   ) : (
-                    <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>No history found for X.</span>
+                    <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>No history found for customer.</span>
                   )}
                 </>
               )}
@@ -464,16 +514,16 @@ export default function Dashboard() {
                 {capacityMetrics.totalItemsQuantity} / {capacityMetrics.targetCapacity}
               </div>
               <div className={styles.capacityBarContainer}>
-                <div 
-                  className={styles.capacityBar} 
-                  style={{ 
+                <div
+                  className={styles.capacityBar}
+                  style={{
                     width: `${capacityMetrics.percentage}%`,
                     background: capacityMetrics.percentage > 85 ? "var(--accent-danger)" : "linear-gradient(to right, var(--accent-secondary), var(--accent-primary))"
                   }}
                 />
               </div>
               <div className={styles.capacityInfo}>
-                {capacityMetrics.percentage}% of weekly capacity committed. 
+                {capacityMetrics.percentage}% of weekly capacity committed.
                 {capacityMetrics.percentage > 85 && <div style={{ color: "var(--accent-danger)", fontWeight: "600", marginTop: "4px" }}>⚠️ High Workload Warning!</div>}
               </div>
             </div>
@@ -486,51 +536,55 @@ export default function Dashboard() {
         <div className={styles.modalBackdrop}>
           <div className={styles.modal}>
             <h2 style={{ fontSize: "16px", fontWeight: "700", color: "var(--accent-warning)" }}>
-              ⚠️ Resolve Offline Synchronization Conflicts
+              ⚠️ Resolve Offline Synchronization Conflicts ({conflicts.length})
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
               Concurrent modifications were detected while offline. Select the authoritative value for each field below:
             </p>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxHeight: "300px", overflowY: "auto" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxHeight: "320px", overflowY: "auto" }}>
               {conflicts.map(conflict => (
                 <div key={conflict.id} className={styles.conflictItem}>
                   <div style={{ fontSize: "12px", fontWeight: "600", borderBottom: "1px solid rgba(255,255,255,0.04)", paddingBottom: "4px" }}>
-                    Field: <span style={{ color: "var(--accent-secondary)" }}>{conflict.field}</span> (Order ID: {conflict.order_id.substring(0, 8)})
+                    Field: <span style={{ color: "var(--accent-secondary)" }}>{conflict.field}</span> (Order: {conflict.order_id.substring(0, 8)})
                   </div>
-                  
+
                   <div className={styles.conflictColumnGrid}>
                     {/* Option A: Local Value */}
-                    <div 
-                      className={styles.conflictOption} 
+                    <div
+                      className={styles.conflictOption}
                       onClick={() => resolveConflict(conflict.order_id, conflict.field, conflict.local_value)}
                     >
                       <span className={styles.conflictLabel}>Local Device</span>
                       <span className={styles.conflictValue}>
                         {typeof conflict.local_value === "object" ? JSON.stringify(conflict.local_value) : String(conflict.local_value)}
                       </span>
-                      <span className={styles.conflictTime}>Time: {conflict.local_timestamp.split(":")[0]}</span>
+                      <button className={`${styles.button} ${styles.buttonSecondary}`} style={{ marginTop: "6px", fontSize: "11px", padding: "2px 8px" }}>
+                        Keep Local Value
+                      </button>
                     </div>
 
                     {/* Option B: Remote Value */}
-                    <div 
-                      className={styles.conflictOption} 
+                    <div
+                      className={styles.conflictOption}
                       onClick={() => resolveConflict(conflict.order_id, conflict.field, conflict.remote_value)}
                     >
                       <span className={styles.conflictLabel}>Sync Peer (Remote)</span>
                       <span className={styles.conflictValue}>
                         {typeof conflict.remote_value === "object" ? JSON.stringify(conflict.remote_value) : String(conflict.remote_value)}
                       </span>
-                      <span className={styles.conflictTime}>Time: {conflict.remote_timestamp.split(":")[0]}</span>
+                      <button className={`${styles.button} ${styles.buttonSecondary}`} style={{ marginTop: "6px", fontSize: "11px", padding: "2px 8px" }}>
+                        Keep Remote Value
+                      </button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <button 
-              className={styles.button} 
-              style={{ alignSelf: "flex-end" }} 
+            <button
+              className={styles.button}
+              style={{ alignSelf: "flex-end" }}
               onClick={() => setIsConflictModalOpen(false)}
             >
               Close Resolver

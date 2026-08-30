@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "batch": "npx tsx scripts/run_batch.ts",
-    "test": "npx tsx scripts/run_batch.ts"
+    "test": "npx tsx scripts/run_batch.ts",
+    "test:sync": "npx tsx scripts/test_sync.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
